@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Personaltool.Models
 {
+    /// <summary>
+    /// Application user, extends the default identity user model
+    /// </summary>
     public class ApplicationUser : IdentityUser
     {
         /* IdentityUser provide

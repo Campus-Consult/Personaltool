@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace Personaltool.Services
 {
+    /// <summary>
+    /// AuthMessageSenderOptions, holds secret smtp configuration
+    /// </summary>
     public class AuthMessageSenderOptions
     {
         public string AuthMessageSenderOptions_Domain { get; set; }

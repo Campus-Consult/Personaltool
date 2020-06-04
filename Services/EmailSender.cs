@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Personaltool.Services
 {
+    /// <summary>
+    /// EmailSender, service for sending emails via SMTP
+    /// </summary>
     public class EmailSender : IEmailSender
     {
         public EmailSender(IOptions<AuthMessageSenderOptions> optionsAccessor)
@@ -13,11 +16,11 @@ namespace Personaltool.Services
             Options = optionsAccessor.Value;
         }
 
-        public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
+        public AuthMessageSenderOptions Options { get; } // set only via Secret Manager
 
         public Task SendEmailAsync(string sentTo, string subject, string message)
         {
-            // Hier den E-Mail-Dienst einfügen, um eine E-Mail-Nachricht zu senden.
+            // Load service parameters
             string Domain = Options.AuthMessageSenderOptions_Domain;
             string UserName = Options.AuthMessageSenderOptions_UserName;
             string SentFrom = Options.AuthMessageSenderOptions_SentFrom;

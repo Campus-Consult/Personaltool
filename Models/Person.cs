@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Personaltool.Models
 {
+    /// <summary>
+    /// Person model, contains all personal data
+    /// </summary>
     public class Person
     {
         [Key]

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Personaltool.Data
 {
+    /// <summary>
+    /// Application database context, register database sets here for migration
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
