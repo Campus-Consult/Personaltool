@@ -31,10 +31,10 @@ Um die App starten zu können wird eine laufende MySQL Datenbank vorausgesetzt: 
 Die von der App verwendete Datenbank wird mittels des EntityFramework Code-First-Migration Konzepts entwickelt. Die Migrationen zur Erzeugung der Datenbank sind im Code enthalten. Um die Datenbank zu erzeugen oder zu aktualisieren, muss der EntityFramework Befehl über die Konsole ausgeführt werden:  
 In Visual Studio Packet-Manager-Konsole:
 
-`PM> Update-Database`
+    PM> Update-Database
 
 In Linux/Mac Konsole:
 
-`> dotnet ef database update`
+    > dotnet ef database update
 
 Weitere Informationen bezüglich Migrationen findet sich in der offiziellen [Dokumentation](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/).
