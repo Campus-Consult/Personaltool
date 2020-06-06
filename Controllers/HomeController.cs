@@ -10,7 +10,10 @@ using Personaltool.Models;
 
 namespace Personaltool.Controllers
 {
-    [Authorize]
+    /// <summary>
+    /// HomeController, controlls calls of base views like homepage, privacy declaration and lagal notice
+    /// </summary>
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,11 +23,13 @@ namespace Personaltool.Controllers
             _logger = logger;
         }
 
+        // GET: /Home/Index/
         public IActionResult Index()
         {
             return View();
         }
 
+        // GET: /Home/Privacy/
         public IActionResult Privacy()
         {
             return View();
