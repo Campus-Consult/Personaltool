@@ -7,26 +7,28 @@ Das Projekt basiert auf dem [ASP.NET Core 3.1 MVC](https://docs.microsoft.com/de
 ## Projekt einrichten:
 
 1. Repository klonen oder herunterladen.
-2. Benötigte Benutzergeheimnisse anlegen. ([Siehe hier](###Benutzergeheimnisse))
+2. BenÃ¶tigte Benutzergeheimnisse anlegen. ([Siehe hier](###Benutzergeheimnisse))
 3. Datenbank migrieren. ([Siehe hier](###Datenbank))
 4. App starten.
 
 ### Benutzergeheimnisse:
-Diese App verwendet einige Benutzergeheimnisse, die vor dem Start der App konfiguriert werden müssen. Diese können mit dem [hier](https://docs.microsoft.com/de-de/aspnet/core/security/app-secrets?view=aspnetcore-3.1) erklärten Secret-Manager-Tool eingerichtet werden.
+Diese App verwendet einige Benutzergeheimnisse, die vor dem Start der App konfiguriert werden mÃ¼ssen. Diese kÃ¶nnen mit dem [hier](https://docs.microsoft.com/de-de/aspnet/core/security/app-secrets?view=aspnetcore-3.1) erklÃ¤rten Secret-Manager-Tool eingerichtet werden.
 
-Die benötigten Schlüssel sind dem folgenden Auszug aus der secrets.json zu entnehmen und müssen mit den zu verwendenden Geheimnissen gefüllt werden:
+Die benÃ¶tigten SchlÃ¼ssel sind dem folgenden Auszug aus der secrets.json zu entnehmen und mÃ¼ssen mit den zu verwendenden Geheimnissen gefÃ¼llt werden:
 
     {
-        "Authentication:AzureAd:ClientSecret": "<AzureAD ClientSecret",
-        "AuthMessageSenderOptions_Domain": "<Domain für SMTP Server>",
-        "AuthMessageSenderOptions_UserName": "<Nutzername für SMTP Server>",
-        "AuthMessageSenderOptions_SentFrom": "<Anzuzeigende Email-Adresse für SMTP Server>",
-        "AuthMessageSenderOptions_Password": "<Passwort für SMTP Server>",
+        "Authentication:AzureAd:ClientSecret": "<AzureAD ClientSecret>",
+        "AuthMessageSenderOptions_Domain": "<Domain fÃ¼r SMTP Server>",
+        "AuthMessageSenderOptions_UserName": "<Nutzername fÃ¼r SMTP Server>",
+        "AuthMessageSenderOptions_SentFrom": "<Anzuzeigende Email-Adresse fÃ¼r SMTP Server>",
+        "AuthMessageSenderOptions_Password": "<Passwort fÃ¼r SMTP Server>",
         "AuthMessageSenderOptions_SMTPClient": "<SMTP Client Adresse>"
     }
 
 ### Datenbank:
-Die von der App verwendete Datenbank wird mittels des EntityFramework Code-First-Migration Konzepts entwickelt. Die Migrationen zur Erzeugung der Datenbank sind im Code enthalten. Um die Datenbank zu erzeugen oder zu aktualisieren, muss der EntityFramework Befehl über die Konsole ausgeführt werden:
+Um die App starten zu kÃ¶nnen wird eine laufende MySQL Datenbank vorausgesetzt: [Download](https://dev.mysql.com/downloads/mysql/). Der default connection String ist auf `server=localhost;port=3306;database=personaltool;user=personaltool;password=personaltool;` festgelegt, was bedeutet dass MySQL lokal auf dem Rechner lÃ¤uft, Port 3306 benutzt, die Datenbank `personaltool` verwendet wird und der Benutzer `personaltool` mit dem Passwort `personaltool` benutzt wird. Alternativ kann dieser connection String auch in den Secrets unter dem SchlÃ¼ssel `ConnectionStrings:DefaultConnection` Ã¼berschrieben werden, falls die lokale installation andere Werte erfordert. Wichtig ist, dass der angegebene Benutzer Schreibrechte auf die angegebene Datenbank hat.
+
+Die von der App verwendete Datenbank wird mittels des EntityFramework Code-First-Migration Konzepts entwickelt. Die Migrationen zur Erzeugung der Datenbank sind im Code enthalten. Um die Datenbank zu erzeugen oder zu aktualisieren, muss der EntityFramework Befehl Ã¼ber die Konsole ausgefÃ¼hrt werden:  
 In Visual Studio Packet-Manager-Konsole:
 
     PM> Update-Database
@@ -35,4 +37,4 @@ In Linux/Mac Konsole:
 
     > dotnet ef database update
 
-
+Weitere Informationen bezÃ¼glich Migrationen findet sich in der offiziellen [Dokumentation](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/).

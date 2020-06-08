@@ -36,7 +36,7 @@ namespace Personaltool
         public void ConfigureServices(IServiceCollection services)
         {
             //  Add the application db context
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             //  Add Identity using Entity Framework Core
             services.AddIdentity<ApplicationUser, IdentityRole>()
