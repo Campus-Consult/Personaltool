@@ -50,6 +50,12 @@ namespace Personaltool.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            public string FirstName { get; set; }
+
+            [Required]
+            public string LastName { get; set; }
+
+            [Required]
             [EmailAddress]
             public string Email { get; set; }
         }
@@ -98,11 +104,15 @@ namespace Personaltool.Areas.Identity.Pages.Account
                 // If the user does not have an account, then ask the user to create an account.
                 ReturnUrl = returnUrl;
                 ProviderDisplayName = info.ProviderDisplayName;
-                if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
+                if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Upn) &&
+                    info.Principal.HasClaim(c => c.Type == ClaimTypes.Surname) &&
+                    info.Principal.HasClaim(c => c.Type == ClaimTypes.GivenName))
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName),
+                        LastName = info.Principal.FindFirstValue(ClaimTypes.Surname),
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Upn)
                     };
                 }
                 return Page();
@@ -122,7 +132,7 @@ namespace Personaltool.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.FirstName, Email = Input.Email };
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
