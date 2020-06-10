@@ -152,7 +152,7 @@ namespace Personaltool.Areas.Identity.Pages.Account
 
         public async Task CreateUserAsync(ExternalLoginInfo info)
         {
-            var user = new ApplicationUser { UserName = Input.FirstName, Email = Input.Email };
+            var user = new ApplicationUser { UserName = Input.FirstName.Trim().Replace(" ", "_", true, null), Email = Input.Email };
 
             var result = await _userManager.CreateAsync(user);
             if (result.Succeeded)
