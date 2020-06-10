@@ -118,6 +118,8 @@ namespace Personaltool.Areas.Identity.Pages.Account
                     // If user infos are claimed, create the user directly 
                     await CreateUserAsync(info);
 
+                    // TODO Connect or create person with this user
+
                     return LocalRedirect(returnUrl);
                 } 
                 else
