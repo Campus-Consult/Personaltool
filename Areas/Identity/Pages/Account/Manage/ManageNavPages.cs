@@ -10,10 +10,6 @@ namespace Personaltool.Areas.Identity.Pages.Account.Manage
     {
         public static string Index => "Index";
 
-        public static string Email => "Email";
-
-        public static string ChangePassword => "ChangePassword";
-
         public static string DownloadPersonalData => "DownloadPersonalData";
 
         public static string DeletePersonalData => "DeletePersonalData";
@@ -22,13 +18,7 @@ namespace Personaltool.Areas.Identity.Pages.Account.Manage
 
         public static string PersonalData => "PersonalData";
 
-        public static string TwoFactorAuthentication => "TwoFactorAuthentication";
-
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
-
-        public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
-
-        public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
 
         public static string DownloadPersonalDataNavClass(ViewContext viewContext) => PageNavClass(viewContext, DownloadPersonalData);
 
@@ -37,8 +27,6 @@ namespace Personaltool.Areas.Identity.Pages.Account.Manage
         public static string ExternalLoginsNavClass(ViewContext viewContext) => PageNavClass(viewContext, ExternalLogins);
 
         public static string PersonalDataNavClass(ViewContext viewContext) => PageNavClass(viewContext, PersonalData);
-
-        public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
 
         private static string PageNavClass(ViewContext viewContext, string page)
         {
