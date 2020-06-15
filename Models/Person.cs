@@ -63,5 +63,5 @@ namespace Personaltool.Models
 
 public enum Gender
 {
-    male, female, diverse
+    MALE, FEMALE, DIVERSE
 }
