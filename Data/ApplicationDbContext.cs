@@ -20,6 +20,8 @@ namespace Personaltool.Data
         }
 
         public DbSet<Person> Persons { get; set; }
+        public DbSet<CareerLevel> CareerLevels { get; set; }
+        public DbSet<PersonsCareerLevel> PersonsCareerLevels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

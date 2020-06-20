@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,12 +18,20 @@ namespace Personaltool.Models
         [Required]
         public int CareerLevelID { get; set; }
 
+        [Required]
+        [Display(Name = "Startdatum")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Begin { get; set; }
 
+        [Display(Name = "Enddatum")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime End { get; set; }
 
+        [Required]
         public Person Person { get; set; }
 
+        [Required]
+        [Display(Name = "Karrierelevel")]
         public CareerLevel CareerLevel { get; set; }
     }
 }
