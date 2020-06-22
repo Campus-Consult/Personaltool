@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Personaltool.Data;
@@ -10,6 +11,7 @@ using Personaltool.ViewModels.Person;
 
 namespace Personaltool.Controllers
 {
+    [Authorize]
     public class PersonController : Controller
     {
         private readonly ApplicationDbContext _context;
