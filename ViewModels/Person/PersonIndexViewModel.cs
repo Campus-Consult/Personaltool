@@ -24,12 +24,18 @@ namespace Personaltool.ViewModels.Person
         [DataType(DataType.Text)]
         public string LastName { get; set; }
 
+        [Required]
+        [Display(Name = "E-Mail")]
+        [DataType(DataType.EmailAddress)]
+        public string EmailAssociaton { get; set; }
+
 
         public PersonIndexViewModel(Models.Person person)
         {
             this.PersonID = person.PersonID;
             this.FirstName = person.FirstName;
             this.LastName = person.LastName;
+            this.EmailAssociaton = person.EmailAssociaton;
         }
     }
 }

@@ -1,0 +1,59 @@
+﻿@model Personaltool.ViewModels.Person.PersonDetailsViewModel
+
+<div>
+    <h4>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.Birthdate)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.Birthdate)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.EmailAssociaton)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.EmailAssociaton)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.EmailPrivate)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.EmailPrivate)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.AdressStreet), @Html.DisplayNameFor(model => model.AdressNr)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.AdressStreet) @Html.DisplayFor(model => model.AdressNr)
+        </dd>
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.AdressZIP), @Html.DisplayNameFor(model => model.AdressCity)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.AdressZIP) @Html.DisplayFor(model => model.AdressCity)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PersonID">Edit</a>
+</div>

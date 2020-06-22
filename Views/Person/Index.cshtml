@@ -1,0 +1,54 @@
+﻿@using Personaltool.ViewModels.Person
+@model IEnumerable<PersonIndexViewModel>
+
+@{
+    ViewData["Title"] = "Personen - Übersicht";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table selectable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EmailAssociaton)
+                    </th>
+                    @*<th></th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr onclick="loadPersonDetailsPartial(@item.PersonID)">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmailAssociaton)
+                    </td>
+                    @*<td>
+                        <a asp-action="Edit" asp-route-id="@item.PersonID">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.PersonID">Delete</a>
+                    </td>*@
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div id="person_details" class="col-md-6">
+        Klicke auf eine Person, um mehr über sie zu erfahren.
+    </div>
+</div>
