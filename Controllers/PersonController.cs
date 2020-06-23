@@ -11,6 +11,9 @@ using Personaltool.ViewModels.Person;
 
 namespace Personaltool.Controllers
 {
+    /// <summary>
+    /// PersonController, controlls person managing actions 
+    /// </summary>
     [Authorize]
     public class PersonController : Controller
     {
@@ -21,6 +24,7 @@ namespace Personaltool.Controllers
             _context = context;
         }
 
+        // GET: /Person/Index/
         public async Task<IActionResult> IndexAsync()
         {
             List<Person> persons = await _context.Persons.ToListAsync<Person>();
@@ -29,6 +33,8 @@ namespace Personaltool.Controllers
             return View(viewModels);
         }
 
+        // Partial view
+        // GET: /Person/_PersonDetailsPartial/
         public async Task<IActionResult> PersonDetailsPartial(int id)
         {
             Person person = await _context.Persons.FindAsync(id);
