@@ -63,5 +63,12 @@ namespace Personaltool.Models
 
 public enum Gender
 {
-    MALE, FEMALE, DIVERSE
+    [Display(Name = "männlich")]
+    MALE,
+    
+    [Display(Name = "weiblich")]
+    FEMALE,
+
+    [Display(Name = "divers")]
+    DIVERSE
 }
