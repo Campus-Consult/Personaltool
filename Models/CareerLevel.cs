@@ -14,7 +14,6 @@ namespace Personaltool.Models
 
         [Required]
         [Display(Name = "Bezeichung")]
-        [DataType(DataType.Text)]
         public string Name { get; set; }
 
         [Required]

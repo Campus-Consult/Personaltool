@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,11 +20,13 @@ namespace Personaltool.Models
         public int CareerLevelID { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Startdatum")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Begin { get; set; }
 
         [Display(Name = "Enddatum")]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime End { get; set; }
 
