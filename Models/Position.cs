@@ -24,6 +24,6 @@ namespace Personaltool.Models
         [Display(Name = "Aktiv")]
         public Boolean IsActive { get; set; }
 
-        public ICollection<Position> PersonsPositions { get; set; }
+        public ICollection<PersonsPosition> PersonsPositions { get; set; }
     }
 }

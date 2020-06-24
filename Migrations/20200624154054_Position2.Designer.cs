@@ -9,8 +9,8 @@ using Personaltool.Data;
 namespace Personaltool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200624151931_Position")]
-    partial class Position
+    [Migration("20200624154054_Position2")]
+    partial class Position2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -302,16 +302,11 @@ namespace Personaltool.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int?>("PositionID1")
-                        .HasColumnType("int");
-
                     b.Property<string>("ShortName")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("PositionID");
-
-                    b.HasIndex("PositionID1");
 
                     b.ToTable("Positions");
                 });
@@ -383,17 +378,10 @@ namespace Personaltool.Migrations
                         .IsRequired();
 
                     b.HasOne("Personaltool.Models.Position", "Position")
-                        .WithMany()
+                        .WithMany("PersonsPositions")
                         .HasForeignKey("PositionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Personaltool.Models.Position", b =>
-                {
-                    b.HasOne("Personaltool.Models.Position", null)
-                        .WithMany("PersonsPositions")
-                        .HasForeignKey("PositionID1");
                 });
 #pragma warning restore 612, 618
         }

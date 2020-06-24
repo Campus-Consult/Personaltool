@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Personaltool.Migrations
 {
-    public partial class Position : Migration
+    public partial class Position2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,18 +16,11 @@ namespace Personaltool.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: false),
                     ShortName = table.Column<string>(nullable: false),
-                    IsActive = table.Column<bool>(nullable: false),
-                    PositionID1 = table.Column<int>(nullable: true)
+                    IsActive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Positions", x => x.PositionID);
-                    table.ForeignKey(
-                        name: "FK_Positions_Positions_PositionID1",
-                        column: x => x.PositionID1,
-                        principalTable: "Positions",
-                        principalColumn: "PositionID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,11 +60,6 @@ namespace Personaltool.Migrations
                 name: "IX_PersonsPositions_PositionID",
                 table: "PersonsPositions",
                 column: "PositionID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Positions_PositionID1",
-                table: "Positions",
-                column: "PositionID1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
