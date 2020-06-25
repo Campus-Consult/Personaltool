@@ -59,6 +59,8 @@ namespace Personaltool.Models
         //public ApplicationUser ApplicationUser { get; set; }
         //Exception: http://go.microsoft.com/fwlink/?LinkId=724062
 
+        public ICollection<PersonsCareerLevel> PersonsCareerLevels { get; set; }
+      
         public ICollection<PersonsPosition> PersonsPositions { get; set; }
     }
 }
