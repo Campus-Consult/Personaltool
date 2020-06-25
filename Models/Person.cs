@@ -58,10 +58,21 @@ namespace Personaltool.Models
 
         //public ApplicationUser ApplicationUser { get; set; }
         //Exception: http://go.microsoft.com/fwlink/?LinkId=724062
+
+        public ICollection<PersonsCareerLevel> PersonsCareerLevels { get; set; }
+      
+        public ICollection<PersonsPosition> PersonsPositions { get; set; }
     }
 }
 
 public enum Gender
 {
-    MALE, FEMALE, DIVERSE
+    [Display(Name = "männlich")]
+    MALE,
+    
+    [Display(Name = "weiblich")]
+    FEMALE,
+
+    [Display(Name = "divers")]
+    DIVERSE
 }

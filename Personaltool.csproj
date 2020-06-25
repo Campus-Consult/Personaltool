@@ -13,6 +13,10 @@
     <Compile Remove="Migrations\20200615182258_Added attributes to Person.cs.Designer.cs" />
     <Compile Remove="Migrations\20200615182733_Added attributes to Person.cs.cs" />
     <Compile Remove="Migrations\20200615182733_Added attributes to Person.cs.Designer.cs" />
+    <Compile Remove="Migrations\20200620115302_CareerLevel.cs" />
+    <Compile Remove="Migrations\20200620115302_CareerLevel.Designer.cs" />
+    <Compile Remove="Migrations\20200624151931_Position.cs" />
+    <Compile Remove="Migrations\20200624151931_Position.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
