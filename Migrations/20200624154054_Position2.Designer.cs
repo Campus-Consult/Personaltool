@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Personaltool.Data;
 
 namespace Personaltool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200624154054_Position2")]
+    partial class Position2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,28 +216,6 @@ namespace Personaltool.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Personaltool.Models.CareerLevel", b =>
-                {
-                    b.Property<int>("CareerLevelID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("ShortName")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("CareerLevelID");
-
-                    b.ToTable("CareerLevels");
-                });
-
             modelBuilder.Entity("Personaltool.Models.Person", b =>
                 {
                     b.Property<int>("PersonID")
@@ -281,34 +261,7 @@ namespace Personaltool.Migrations
 
                     b.ToTable("Person");
                 });
-                
-            modelBuilder.Entity("Personaltool.Models.PersonsCareerLevel", b =>
-                {
-                    b.Property<int>("PersonsCareerLevelID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
 
-                    b.Property<DateTime>("Begin")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CareerLevelID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("PersonID")
-                        .HasColumnType("int");
-
-                    b.HasKey("PersonsCareerLevelID");
-
-                    b.HasIndex("CareerLevelID");
-
-                    b.HasIndex("PersonID");
-
-                    b.ToTable("PersonsCareerLevels");
-                });
-                
             modelBuilder.Entity("Personaltool.Models.PersonsPosition", b =>
                 {
                     b.Property<int>("PersonPositionID")
@@ -415,22 +368,7 @@ namespace Personaltool.Migrations
                         .WithMany()
                         .HasForeignKey("PersonID");
                 });
-                
-            modelBuilder.Entity("Personaltool.Models.PersonsCareerLevel", b =>
-                {
-                    b.HasOne("Personaltool.Models.CareerLevel", "CareerLevel")
-                        .WithMany("PersonsCareerLevels")
-                        .HasForeignKey("CareerLevelID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
-                    b.HasOne("Personaltool.Models.Person", "Person")
-                        .WithMany("PersonsCareerLevels")
-                        .HasForeignKey("PersonID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-            
             modelBuilder.Entity("Personaltool.Models.PersonsPosition", b =>
                 {
                     b.HasOne("Personaltool.Models.Person", "Person")
