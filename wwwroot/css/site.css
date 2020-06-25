@@ -16,11 +16,6 @@ a.navbar-brand {
     background-color: #85b0df;
 }
 
-a.navbar:hover {
-    background-color: #228b22;
-    border-color: #228b22;
-}
-
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
     color: #fff;
@@ -32,7 +27,12 @@ a.navbar:hover {
 /* Provide sufficient contrast against white background */
 
 a {
-    color: #0000;
+    /* Links werden in CC grün hervorgehoben */
+    color: #000000;
+    font-family: "Franklin Gothic";
+    font-size: 16px;
+    font-style: normal;
+    font-variant: normal;
 }
 
 .btn-primary {
