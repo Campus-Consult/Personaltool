@@ -12,6 +12,11 @@ a.navbar-brand {
   background-color: #85b0df;
 }
 
+.footer {
+  background-color: #85b0df;
+}
+
+
 a.navbar:hover {
   background-color: #228b22;
   border-color:  #228b22;
