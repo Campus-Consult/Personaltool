@@ -37,7 +37,8 @@ namespace Personaltool.Controllers
         // GET: /Person/_PersonDetailsPartial/
         public async Task<IActionResult> PersonDetailsPartial(int id)
         {
-            Person person = await _context.Persons.FindAsync(id);
+            var persons = _context.Persons.Include(x => x.PersonsCareerLevels).ThenInclude(x => x.CareerLevel).Include(x => x.PersonsPositions).ThenInclude(x => x.Position);
+            Person person = await persons.FirstOrDefaultAsync(x => x.PersonID == id);
             PersonDetailsViewModel viewModel = new PersonDetailsViewModel(person);
 
             return PartialView("_PersonDetailsPartial", viewModel);

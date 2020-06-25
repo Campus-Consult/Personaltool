@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Personaltool.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -55,6 +56,14 @@ namespace Personaltool.ViewModels.Person
         [Display(Name = "Stadt")]
         public string AdressCity { get; set; }
 
+        [Display(Name = "Karriere-Level")]
+        public IEnumerable<PersonsCarreerLevelHistoryViewModel> CurrentPersonsCarreerLevels { get; set; }
+        public IEnumerable<PersonsCarreerLevelHistoryViewModel> HistoryPersonsCarreerLevels { get; set; }
+
+        [Display(Name = "Posten")]
+        public IEnumerable<PersonsPositionHistoryViewModel> CurrentPersonsPositions { get; set; }
+        public IEnumerable<PersonsPositionHistoryViewModel> HistoryPersonsPositions { get; set; }
+
 
         public PersonDetailsViewModel(Models.Person person)
         {
@@ -70,6 +79,14 @@ namespace Personaltool.ViewModels.Person
             this.AdressNr = person.AdressNr;
             this.AdressZIP = person.AdressZIP;
             this.AdressCity = person.AdressCity;
+
+            var PersonsCarrerLevels = person.PersonsCareerLevels.ToList().ConvertAll<PersonsCarreerLevelHistoryViewModel>(personsCarreerLevel => new PersonsCarreerLevelHistoryViewModel(personsCarreerLevel)).OrderByDescending(x => x.Begin);
+            this.CurrentPersonsCarreerLevels = PersonsCarrerLevels.Where(x => x.End == null || x.End > DateTime.Now);
+            this.HistoryPersonsCarreerLevels = PersonsCarrerLevels.Where(x => x.End != null && x.End <= DateTime.Now);
+
+            var PersonsPositions = person.PersonsPositions.ToList().ConvertAll<PersonsPositionHistoryViewModel>(personsPosition => new PersonsPositionHistoryViewModel(personsPosition)).OrderByDescending(x => x.Begin);
+            this.CurrentPersonsPositions = PersonsPositions.Where(x => x.End == null || x.End > DateTime.Now);
+            this.HistoryPersonsPositions = PersonsPositions.Where(x => x.End != null && x.End <= DateTime.Now);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Personaltool.Models
         [Display(Name = "Enddatum")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime End { get; set; }
+        public DateTime? End { get; set; }
 
         [Required]
         public Person Person { get; set; }
