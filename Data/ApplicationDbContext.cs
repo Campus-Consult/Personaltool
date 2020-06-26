@@ -21,6 +21,10 @@ namespace Personaltool.Data
 
         public DbSet<Person> Persons { get; set; }
 
+        public DbSet<MemberStatus> MemberStatus { get; set; }
+
+        public DbSet<PersonsMemberStatus> PersonsMemberStatus { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Person>().ToTable("Person");
