@@ -21,9 +21,16 @@ namespace Personaltool.Data
 
         public DbSet<Person> Persons { get; set; }
 
-        public DbSet<MemberStatus> MemberStatus { get; set; }
 
+        public DbSet<MemberStatus> MemberStatus { get; set; }
         public DbSet<PersonsMemberStatus> PersonsMemberStatus { get; set; }
+
+        public DbSet<CareerLevel> CareerLevels { get; set; }
+        public DbSet<PersonsCareerLevel> PersonsCareerLevels { get; set; }
+
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<PersonsPosition> PersonsPositions { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Personaltool.Data;
 
 namespace Personaltool.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200620115519_CareerLevelDb")]
+    partial class CareerLevelDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -281,7 +283,7 @@ namespace Personaltool.Migrations
 
                     b.ToTable("Person");
                 });
-                
+
             modelBuilder.Entity("Personaltool.Models.PersonsCareerLevel", b =>
                 {
                     b.Property<int>("PersonsCareerLevelID")
@@ -307,55 +309,6 @@ namespace Personaltool.Migrations
                     b.HasIndex("PersonID");
 
                     b.ToTable("PersonsCareerLevels");
-                });
-                
-            modelBuilder.Entity("Personaltool.Models.PersonsPosition", b =>
-                {
-                    b.Property<int>("PersonPositionID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Begin")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("PersonID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PositionID")
-                        .HasColumnType("int");
-
-                    b.HasKey("PersonPositionID");
-
-                    b.HasIndex("PersonID");
-
-                    b.HasIndex("PositionID");
-
-                    b.ToTable("PersonsPositions");
-                });
-
-            modelBuilder.Entity("Personaltool.Models.Position", b =>
-                {
-                    b.Property<int>("PositionID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("ShortName")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("PositionID");
-
-                    b.ToTable("Positions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -415,7 +368,7 @@ namespace Personaltool.Migrations
                         .WithMany()
                         .HasForeignKey("PersonID");
                 });
-                
+
             modelBuilder.Entity("Personaltool.Models.PersonsCareerLevel", b =>
                 {
                     b.HasOne("Personaltool.Models.CareerLevel", "CareerLevel")
@@ -427,21 +380,6 @@ namespace Personaltool.Migrations
                     b.HasOne("Personaltool.Models.Person", "Person")
                         .WithMany("PersonsCareerLevels")
                         .HasForeignKey("PersonID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-            
-            modelBuilder.Entity("Personaltool.Models.PersonsPosition", b =>
-                {
-                    b.HasOne("Personaltool.Models.Person", "Person")
-                        .WithMany("PersonsPositions")
-                        .HasForeignKey("PersonID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Personaltool.Models.Position", "Position")
-                        .WithMany("PersonsPositions")
-                        .HasForeignKey("PositionID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
