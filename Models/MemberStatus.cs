@@ -16,7 +16,7 @@ namespace Personaltool.Models
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-        public ICollection PersonsMemberStatus { get; set; }
+        public ICollection<PersonsMemberStatus> PersonsMemberStatus { get; set; }
 
 
     }

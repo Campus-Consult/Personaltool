@@ -19,6 +19,6 @@ namespace Personaltool.Models
 
         public string LastName { get; set; }
 
-        public ICollection PersonsMemberStatus { get; set; }
+        public ICollection<PersonsMemberStatus> PersonsMemberStatus { get; set; }
     }
 }
