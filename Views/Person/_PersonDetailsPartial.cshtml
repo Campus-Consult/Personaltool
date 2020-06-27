@@ -1,147 +1,160 @@
 ﻿@model Personaltool.ViewModels.Person.PersonDetailsViewModel
 
-<div>
-    <h4>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.Birthdate)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.Birthdate)
-        </dd>
-        <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.EmailAssociaton)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.EmailAssociaton)
-        </dd>
-        <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.EmailPrivate)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.EmailPrivate)
-        </dd>
-        <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.AdressStreet), @Html.DisplayNameFor(model => model.AdressNr)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.AdressStreet) @Html.DisplayFor(model => model.AdressNr)
-        </dd>
-        <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.AdressZIP), @Html.DisplayNameFor(model => model.AdressCity)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.AdressZIP) @Html.DisplayFor(model => model.AdressCity)
-        </dd>
-        <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.CurrentPersonsCarreerLevels)
-        </dt>
-        <dd class="col-sm-6">
-            <div class="row">
-                <div class="col-sm-8">
-                    @foreach (var carreerLevel in Model.CurrentPersonsCarreerLevels)
-                    {
-                        @Html.DisplayFor(model => carreerLevel.Name)<br />
-                    }
-                </div>
+<div class="card">
+    <div class="card-header">
+        <h4>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Birthdate)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Birthdate)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.EmailAssociaton)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.EmailAssociaton)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.EmailPrivate)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.EmailPrivate)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.AdressStreet), @Html.DisplayNameFor(model => model.AdressNr)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.AdressStreet) @Html.DisplayFor(model => model.AdressNr)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.AdressZIP), @Html.DisplayNameFor(model => model.AdressCity)
+            </dt>
+            <dd class="col-sm-6">
+                @Html.DisplayFor(model => model.AdressZIP) @Html.DisplayFor(model => model.AdressCity)
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.CurrentPersonsCarreerLevels)
+            </dt>
+            <dd class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-8">
+                        @foreach (var carreerLevel in Model.CurrentPersonsCarreerLevels)
+                        {
+                            @Html.DisplayFor(model => carreerLevel.Name)<br />
+                        }
+                    </div>
 
-                @*TODO Style to CSS*@
-                <a class="col-sm-4" style="font-size:8pt; color:gray; font-style:italic" href="#carreerlevels_history" data-toggle="collapse" data-target="#carreerlevels_history">History (@(Model.CurrentPersonsCarreerLevels.Count()+Model.HistoryPersonsCarreerLevels.Count()))</a>
-            </div>
-        </dd>
-        <dd class="col-sm-12">
-            <table id="carreerlevels_history" class="table collapse">
-                <tbody>
-                    @foreach (var carreerLevel in Model.CurrentPersonsCarreerLevels)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(model => carreerLevel.Name)
-                            </td>
-                            <td>
-                                Seit @Html.DisplayFor(model => carreerLevel.Begin)
-                            </td>
-                        </tr>
-                    }
-                    @foreach (var carreerLevel in Model.HistoryPersonsCarreerLevels)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(model => carreerLevel.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(model => carreerLevel.Begin) - @Html.DisplayFor(model => carreerLevel.End)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </dd>
-        <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.CurrentPersonsPositions)
-        </dt>
-        <dd class="col-sm-6">
-            <div class="row">
-                <div class="col-sm-8">
-                    @foreach (var position in Model.CurrentPersonsPositions)
-                    {
-                        @Html.DisplayFor(model => position.Name)<br />
-                    }
+                    <button type="button" class="col-sm-4 btn btn-light btn-sm" data-toggle="collapse" data-target="#carreerlevels_history">
+                        History <span class="badge badge-light">@(Model.CurrentPersonsCarreerLevels.Count()+Model.HistoryPersonsCarreerLevels.Count())</span>
+                    </button>
                 </div>
+            </dd>
+            <dd class="col-sm-12">
+                <div id="carreerlevels_history" class="collapse">
+                    <table class="table">
+                        <tbody>
+                            @foreach (var carreerLevel in Model.CurrentPersonsCarreerLevels)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => carreerLevel.Name)
+                                    </td>
+                                    <td>
+                                        Seit @Html.DisplayFor(model => carreerLevel.Begin)
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var carreerLevel in Model.HistoryPersonsCarreerLevels)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => carreerLevel.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => carreerLevel.Begin) - @Html.DisplayFor(model => carreerLevel.End)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </dd>
+            <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.CurrentPersonsPositions)
+            </dt>
+            <dd class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-8">
+                        @if (Model.CurrentPersonsPositions.Count() == 0)
+                        {
+                            <p class="card-text">-</p>
+                        }
+                        @foreach (var position in Model.CurrentPersonsPositions)
+                        {
+                            <p class="card-text">@Html.DisplayFor(model => position.Name)</p><br />
+                        }
+                    </div>
 
-                @*TODO Style to CSS*@
-                <a class="col-sm-4" style="font-size:8pt; color:gray; font-style:italic" href="#positions_history" data-toggle="collapse" data-target="#positions_history">History (@Model.HistoryPersonsPositions.Count())</a>
-            </div>
-        </dd>
-        <dd class="col-sm-12">
-            <table id="positions_history" class="table collapse">
-                <tbody>
-                    @foreach (var position in Model.CurrentPersonsPositions)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(model => position.Name)
-                            </td>
-                            <td>
-                                Seit @Html.DisplayFor(model => position.Begin)
-                            </td>
-                        </tr>
-                    }
-                    @foreach (var position in Model.HistoryPersonsPositions)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(model => position.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(model => position.Begin) - @Html.DisplayFor(model => position.End)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.PersonID">Edit</a>
+                    <button type="button" class="col-sm-4 btn btn-light btn-sm" data-toggle="collapse" data-target="#positions_history">
+                        History <span class="badge badge-light">@(Model.CurrentPersonsPositions.Count()+Model.HistoryPersonsPositions.Count())</span>
+                    </button>
+                </div>
+            </dd>
+            <dd class="col-sm-12">
+                <div id="positions_history" class="collapse">
+                    <table class="table">
+                        <tbody>
+                            @foreach (var position in Model.CurrentPersonsPositions)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => position.Name)
+                                    </td>
+                                    <td>
+                                        Seit @Html.DisplayFor(model => position.Begin)
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var position in Model.HistoryPersonsPositions)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => position.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => position.Begin) - @Html.DisplayFor(model => position.End)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </dd>
+        </dl>
+    </div>
+    <div class="card-footer">
+        <a class="card-link" asp-action="Edit" asp-route-id="@Model.PersonID">Edit</a>
+    </div>
 </div>
