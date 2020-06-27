@@ -78,10 +78,10 @@ td {
 
 /* Selectable table rows styles
 -------------------------------------------------- */
-table.selectable tbody tr.selectedRow {
+table.table-selectable tbody tr.selectedRow {
     background-color: rgb(24,62,116);
     color: white;
 }
-table.selectable tbody tr.selectedRow a {
+table.table-selectable tbody tr.selectedRow a {
     color: rgb(173,212,242);
 }
