@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,9 +60,12 @@ namespace Personaltool.Models
         //public ApplicationUser ApplicationUser { get; set; }
         //Exception: http://go.microsoft.com/fwlink/?LinkId=724062
 
+        public ICollection<PersonsMemberStatus> PersonsMemberStatus { get; set; }
+
         public ICollection<PersonsCareerLevel> PersonsCareerLevels { get; set; }
       
         public ICollection<PersonsPosition> PersonsPositions { get; set; }
+
     }
 }
 
