@@ -56,6 +56,10 @@ namespace Personaltool.ViewModels.Person
         [Display(Name = "Stadt")]
         public string AdressCity { get; set; }
 
+        [Display(Name = "Mitglieds-Status")]
+        public IEnumerable<PersonsMemberStatusHistoryViewModel> CurrentPersonsMemberStatus { get; set; }
+        public IEnumerable<PersonsMemberStatusHistoryViewModel> HistoryPersonsMemberStatus { get; set; }
+
         [Display(Name = "Karriere-Level")]
         public IEnumerable<PersonsCarreerLevelHistoryViewModel> CurrentPersonsCarreerLevels { get; set; }
         public IEnumerable<PersonsCarreerLevelHistoryViewModel> HistoryPersonsCarreerLevels { get; set; }
@@ -79,6 +83,10 @@ namespace Personaltool.ViewModels.Person
             this.AdressNr = person.AdressNr;
             this.AdressZIP = person.AdressZIP;
             this.AdressCity = person.AdressCity;
+
+            var PersonsMemberStatus = person.PersonsMemberStatus.ToList().ConvertAll<PersonsMemberStatusHistoryViewModel>(personsMemberStatus => new PersonsMemberStatusHistoryViewModel(personsMemberStatus)).OrderByDescending(x => x.Begin);
+            this.CurrentPersonsMemberStatus = PersonsMemberStatus.Where(x => x.End == null || x.End > DateTime.Now);
+            this.HistoryPersonsMemberStatus = PersonsMemberStatus.Where(x => x.End != null && x.End <= DateTime.Now);
 
             var PersonsCarrerLevels = person.PersonsCareerLevels.ToList().ConvertAll<PersonsCarreerLevelHistoryViewModel>(personsCarreerLevel => new PersonsCarreerLevelHistoryViewModel(personsCarreerLevel)).OrderByDescending(x => x.Begin);
             this.CurrentPersonsCarreerLevels = PersonsCarrerLevels.Where(x => x.End == null || x.End > DateTime.Now);

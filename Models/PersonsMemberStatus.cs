@@ -22,7 +22,7 @@ namespace Personaltool.Models
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Ende")]
-        public DateTime End { get; set; }
+        public DateTime? End { get; set; }
 
 
         public Person Person { get; set; }

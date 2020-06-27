@@ -55,6 +55,53 @@
                 @Html.DisplayFor(model => model.AdressZIP) @Html.DisplayFor(model => model.AdressCity)
             </dd>
             <dt class="col-sm-6">
+                @Html.DisplayNameFor(model => model.CurrentPersonsMemberStatus)
+            </dt>
+            <dd class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-8">
+                        @foreach (var memberStatus in Model.CurrentPersonsMemberStatus)
+                        {
+                            @Html.DisplayFor(model => memberStatus.Name)<br />
+                        }
+                    </div>
+
+                    <button type="button" class="col-sm-4 btn btn-light btn-sm" data-toggle="collapse" data-target="#memberstatus_history">
+                        History <span class="badge badge-light">@(Model.CurrentPersonsMemberStatus.Count()+Model.HistoryPersonsMemberStatus.Count())</span>
+                    </button>
+                </div>
+            </dd>
+            <dd class="col-sm-12">
+                <div id="memberstatus_history" class="collapse">
+                    <table class="table">
+                        <tbody>
+                            @foreach (var memberStatus in Model.CurrentPersonsMemberStatus)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => memberStatus.Name)
+                                    </td>
+                                    <td>
+                                        Seit @Html.DisplayFor(model => memberStatus.Begin)
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var memberStatus in Model.HistoryPersonsMemberStatus)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(model => memberStatus.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(model => memberStatus.Begin) - @Html.DisplayFor(model => memberStatus.End)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </dd>
+            <dt class="col-sm-6">
                 @Html.DisplayNameFor(model => model.CurrentPersonsCarreerLevels)
             </dt>
             <dd class="col-sm-6">
