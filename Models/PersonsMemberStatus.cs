@@ -19,7 +19,6 @@ namespace Personaltool.Models
         [Display(Name = "Beginn")]
         public DateTime Begin { get; set; }
 
-        [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Ende")]
         public DateTime? End { get; set; }
