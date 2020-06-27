@@ -73,7 +73,7 @@
             </dd>
             <dd class="col-sm-12">
                 <div id="memberstatus_history" class="collapse">
-                    <table class="table">
+                    <table class="table table-sm">
                         <tbody>
                             @foreach (var memberStatus in Model.CurrentPersonsMemberStatus)
                             {
@@ -81,7 +81,7 @@
                                     <td>
                                         @Html.DisplayFor(model => memberStatus.Name)
                                     </td>
-                                    <td>
+                                    <td align="right">
                                         Seit @Html.DisplayFor(model => memberStatus.Begin)
                                     </td>
                                 </tr>
@@ -92,7 +92,7 @@
                                     <td>
                                         @Html.DisplayFor(model => memberStatus.Name)
                                     </td>
-                                    <td>
+                                    <td align="right">
                                         @Html.DisplayFor(model => memberStatus.Begin) - @Html.DisplayFor(model => memberStatus.End)
                                     </td>
                                 </tr>
@@ -120,7 +120,7 @@
             </dd>
             <dd class="col-sm-12">
                 <div id="carreerlevels_history" class="collapse">
-                    <table class="table">
+                    <table class="table table-sm">
                         <tbody>
                             @foreach (var carreerLevel in Model.CurrentPersonsCarreerLevels)
                             {
@@ -128,7 +128,7 @@
                                     <td>
                                         @Html.DisplayFor(model => carreerLevel.Name)
                                     </td>
-                                    <td>
+                                    <td align="right">
                                         Seit @Html.DisplayFor(model => carreerLevel.Begin)
                                     </td>
                                 </tr>
@@ -139,7 +139,7 @@
                                     <td>
                                         @Html.DisplayFor(model => carreerLevel.Name)
                                     </td>
-                                    <td>
+                                    <td align="right">
                                         @Html.DisplayFor(model => carreerLevel.Begin) - @Html.DisplayFor(model => carreerLevel.End)
                                     </td>
                                 </tr>
@@ -171,7 +171,7 @@
             </dd>
             <dd class="col-sm-12">
                 <div id="positions_history" class="collapse">
-                    <table class="table">
+                    <table class="table table-sm">
                         <tbody>
                             @foreach (var position in Model.CurrentPersonsPositions)
                             {
@@ -179,7 +179,7 @@
                                     <td>
                                         @Html.DisplayFor(model => position.Name)
                                     </td>
-                                    <td>
+                                    <td align="right">
                                         Seit @Html.DisplayFor(model => position.Begin)
                                     </td>
                                 </tr>
@@ -190,7 +190,7 @@
                                     <td>
                                         @Html.DisplayFor(model => position.Name)
                                     </td>
-                                    <td>
+                                    <td align="right">
                                         @Html.DisplayFor(model => position.Begin) - @Html.DisplayFor(model => position.End)
                                     </td>
                                 </tr>
