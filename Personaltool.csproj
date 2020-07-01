@@ -17,6 +17,8 @@
     <Compile Remove="Migrations\20200620115302_CareerLevel.Designer.cs" />
     <Compile Remove="Migrations\20200624151931_Position.cs" />
     <Compile Remove="Migrations\20200624151931_Position.Designer.cs" />
+    <Compile Remove="Migrations\20200627132941_MakeEndOptional.cs" />
+    <Compile Remove="Migrations\20200627132941_MakeEndOptional.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

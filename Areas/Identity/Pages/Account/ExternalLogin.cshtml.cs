@@ -12,7 +12,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Personaltool.Data;
 using Personaltool.Models;
 
 namespace Personaltool.Areas.Identity.Pages.Account
@@ -22,6 +24,7 @@ namespace Personaltool.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
 
@@ -29,12 +32,14 @@ namespace Personaltool.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -58,6 +63,8 @@ namespace Personaltool.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            public Person Person { get; set; }
         }
 
         public IActionResult OnGetAsync()
@@ -115,10 +122,11 @@ namespace Personaltool.Areas.Identity.Pages.Account
                         Email = info.Principal.FindFirstValue(ClaimTypes.Upn)
                     };
 
+                    // Connect or create person with this user
+                    LinkPerson();
+
                     // If user infos are claimed, create the user directly 
                     await CreateUserAsync(info);
-
-                    // TODO Connect or create person with this user
 
                     return LocalRedirect(returnUrl);
                 } 
@@ -128,6 +136,25 @@ namespace Personaltool.Areas.Identity.Pages.Account
                 }
             }
         }
+
+        private void LinkPerson()
+        {
+            var person = _context.Persons.FirstOrDefault(x => x.EmailAssociaton == Input.Email);
+            if(person is null)
+            {
+                person = new Person()
+                {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    EmailAssociaton = Input.Email
+                };
+                _context.Persons.Add(person);
+            }
+
+            Input.Person = person;
+
+        }
+
 
         public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
         {
@@ -152,7 +179,7 @@ namespace Personaltool.Areas.Identity.Pages.Account
 
         public async Task CreateUserAsync(ExternalLoginInfo info)
         {
-            var user = new ApplicationUser { UserName = Input.FirstName.Trim().Replace(" ", "_", true, null), Email = Input.Email };
+            var user = new ApplicationUser { UserName = Input.FirstName.Trim().Replace(" ", "_", true, null), Email = Input.Email, Person = Input.Person };
 
             var result = await _userManager.CreateAsync(user);
             if (result.Succeeded)

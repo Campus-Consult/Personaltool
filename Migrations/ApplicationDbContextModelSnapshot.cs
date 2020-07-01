@@ -309,7 +309,7 @@ namespace Personaltool.Migrations
                     b.Property<int>("CareerLevelID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("End")
+                    b.Property<DateTime?>("End")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("PersonID")
@@ -333,7 +333,7 @@ namespace Personaltool.Migrations
                     b.Property<DateTime>("Begin")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("End")
+                    b.Property<DateTime?>("End")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("MemberStatusID")
@@ -360,7 +360,7 @@ namespace Personaltool.Migrations
                     b.Property<DateTime>("Begin")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("End")
+                    b.Property<DateTime?>("End")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("PersonID")
