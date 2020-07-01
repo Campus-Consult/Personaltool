@@ -35,6 +35,12 @@ namespace Personaltool.Controllers
             return View();
         }
 
+        // GET: /Home/LegalNotice/
+        public IActionResult LegalNotice()
+        {
+            return View();
+        }
+
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
