@@ -63,49 +63,18 @@ body {
 
 /* ============== Schriftart Frankling Gothic  From (CSS FONT Generator) https://www.cssfontstack.com/franklin-gothic-medium */
 
-h1 {
-    font-family: "Franklin Gothic Medium";
-    font-size: 26px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 400;
-    line-height: 28.6px;
-}
-
-h3 {
-    font-family: "Franklin Gothic Medium";
-    font-size: 18px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 400;
-    line-height: 19.8px;
-}
-
-p {
+* {
     font-family: "Franklin Gothic";
-    font-size: 16px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 400;
-    line-height: 22.8571px;
 }
 
-blockquote {
-    font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
-    font-size: 21px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 400;
-    line-height: 30px;
-}
-
-pre {
-    font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
-    font-size: 13px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 400;
-    line-height: 18.5714px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Franklin Gothic Medium";
+    color: #183e74
 }
 
 .border-top {
