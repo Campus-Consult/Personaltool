@@ -236,6 +236,21 @@ namespace Personaltool.Migrations
                     b.ToTable("CareerLevels");
                 });
 
+            modelBuilder.Entity("Personaltool.Models.MemberStatus", b =>
+                {
+                    b.Property<int>("MemberStatusID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("MemberStatusID");
+
+                    b.ToTable("MemberStatus");
+                });
+
             modelBuilder.Entity("Personaltool.Models.Person", b =>
                 {
                     b.Property<int>("PersonID")
@@ -281,7 +296,7 @@ namespace Personaltool.Migrations
 
                     b.ToTable("Person");
                 });
-                
+
             modelBuilder.Entity("Personaltool.Models.PersonsCareerLevel", b =>
                 {
                     b.Property<int>("PersonsCareerLevelID")
@@ -294,7 +309,7 @@ namespace Personaltool.Migrations
                     b.Property<int>("CareerLevelID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("End")
+                    b.Property<DateTime?>("End")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("PersonID")
@@ -308,7 +323,34 @@ namespace Personaltool.Migrations
 
                     b.ToTable("PersonsCareerLevels");
                 });
-                
+
+            modelBuilder.Entity("Personaltool.Models.PersonsMemberStatus", b =>
+                {
+                    b.Property<int>("PersonsMemberStatusID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Begin")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("End")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("MemberStatusID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonID")
+                        .HasColumnType("int");
+
+                    b.HasKey("PersonsMemberStatusID");
+
+                    b.HasIndex("MemberStatusID");
+
+                    b.HasIndex("PersonID");
+
+                    b.ToTable("PersonsMemberStatus");
+                });
+
             modelBuilder.Entity("Personaltool.Models.PersonsPosition", b =>
                 {
                     b.Property<int>("PersonPositionID")
@@ -318,7 +360,7 @@ namespace Personaltool.Migrations
                     b.Property<DateTime>("Begin")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("End")
+                    b.Property<DateTime?>("End")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("PersonID")
@@ -415,7 +457,7 @@ namespace Personaltool.Migrations
                         .WithMany()
                         .HasForeignKey("PersonID");
                 });
-                
+
             modelBuilder.Entity("Personaltool.Models.PersonsCareerLevel", b =>
                 {
                     b.HasOne("Personaltool.Models.CareerLevel", "CareerLevel")
@@ -430,7 +472,22 @@ namespace Personaltool.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
-            
+
+            modelBuilder.Entity("Personaltool.Models.PersonsMemberStatus", b =>
+                {
+                    b.HasOne("Personaltool.Models.MemberStatus", "MemberStatus")
+                        .WithMany("PersonsMemberStatus")
+                        .HasForeignKey("MemberStatusID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Personaltool.Models.Person", "Person")
+                        .WithMany("PersonsMemberStatus")
+                        .HasForeignKey("PersonID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Personaltool.Models.PersonsPosition", b =>
                 {
                     b.HasOne("Personaltool.Models.Person", "Person")

@@ -1,0 +1,61 @@
+﻿@using Personaltool.ViewModels.Person
+@model IEnumerable<PersonIndexViewModel>
+
+@{
+    ViewData["Title"] = "Personen - Übersicht";
+}
+
+<h2>@ViewData["Title"]</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="row">
+    <div class="col-md-6">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><img src="~/assets/bootstrap-icons/search.svg" /></span>
+            </div>
+            <input class="form-control" id="search-input" type="text" placeholder="Suchen..">
+        </div>
+        <br>
+        <div class="overflow-auto" style="max-height: 600px">
+            <table class="table table-hover table-selectable table-searchable">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmailAssociaton)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr onclick="loadPersonDetailsPartial(@item.PersonID)">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                <a href="mailto:@item.EmailAssociaton">
+                                    <img class="svg" src="~/assets/bootstrap-icons/reply.svg" />
+                                </a>
+                                @*@Html.DisplayFor(modelItem => item.EmailAssociaton)*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="person_details" class="col-md-6">
+        Klicke auf eine Person, um mehr über sie zu erfahren.
+    </div>
+</div>
