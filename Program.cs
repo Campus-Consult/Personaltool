@@ -20,14 +20,19 @@ namespace Personaltool
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<ApplicationDbContext>();
+                #if !DEBUG
                 // auto migration only on release
-                // context.Database.Migrate();
+                context.Database.Migrate();
+                #endif
 
                 CCDefaultDataSeed.DoSeed(context).Wait();
 
+                #if DEBUG
+                // make sure to never seed random data in release build
                 var config = services.GetRequiredService<IConfiguration>();
                 var randomTestSeedConfig = config.GetSection("RandomTestSeedConfig").Get<RandomTestSeedConfig>();
                 RandomTestDataSeed.DoSeed(context, randomTestSeedConfig).Wait();
+                #endif
             }
             webHost.Run();
         }
