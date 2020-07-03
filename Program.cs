@@ -24,6 +24,10 @@ namespace Personaltool
                 // context.Database.Migrate();
 
                 CCDefaultDataSeed.DoSeed(context).Wait();
+
+                var config = services.GetRequiredService<IConfiguration>();
+                var randomTestSeedConfig = config.GetSection("RandomTestSeedConfig").Get<RandomTestSeedConfig>();
+                RandomTestDataSeed.DoSeed(context, randomTestSeedConfig).Wait();
             }
             webHost.Run();
         }
