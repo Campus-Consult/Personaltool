@@ -78,12 +78,12 @@ namespace Personaltool
             services.AddAuthentication(/*AzureADDefaults.AuthenticationScheme*/)
                 .AddOpenIdConnect(options => {
                     var azureConf = Configuration.GetSection("AzureAd");
+                    options.CallbackPath = azureConf["CallbackPath"];
                     options.ClientId = azureConf["ClientId"];
                     options.ClientSecret = azureConf["ClientSecret"];
                     options.Authority = $"https://login.microsoftonline.com/{azureConf["TenantId"]}/v2.0";
                     options.ResponseType = OpenIdConnectResponseType.Code;
-                    var scopes = $"{azureConf["Scopes"]} {azureConf["GraphScopes"]}";
-                    foreach (var scope in scopes.Split(' ', StringSplitOptions.RemoveEmptyEntries)) {
+                    foreach (var scope in azureConf["Scopes"].Split(' ', StringSplitOptions.RemoveEmptyEntries)) {
                         options.Scope.Add(scope);
                     }
                     options.GetClaimsFromUserInfoEndpoint = true;
