@@ -12,8 +12,8 @@ a.navbar-brand {
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
     color: #fff;
-    background-color: #228b22;
-    border-color: #228b22;
+    background-color: #183e74;
+    border-color: #183e74;
 }
 
 
@@ -21,7 +21,7 @@ a.navbar-brand {
 
 a {
     /* Links werden in CC grün hervorgehoben */
-    color: #85b0df;
+    color: #183e74;
     font-family: "Franklin Gothic";
     
 }
@@ -30,7 +30,7 @@ a {
 /* Button Styles
 -------------------------------- */
 .btn-link {
-    color: #85b0df;
+    color: #183e74;
 }
 
 .btn-primary {
