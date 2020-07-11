@@ -38,3 +38,18 @@ In Linux/Mac Konsole:
     > dotnet ef database update
 
 Weitere Informationen bezüglich Migrationen findet sich in der offiziellen [Dokumentation](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/).
+
+#### Datenbank Testing
+
+    "RandomTestSeedConfig": {
+        "Enabled": false, // this entire feature is disabled by default
+        "ClearExistingData": false, // if all existing data should be removed, doesn't remove Persons connected to Accounts
+        "Seed": null, // setting this to null causes the seed to be random, if it's a number, it's choosen as the seed
+        "Persons": 10,
+        "Positions": 5,
+        "CareerLevels": 4,
+        "MemberStatus": 3,
+        "PersonPositions": 10,
+        "PersonCareerLevels": 6,
+        "PersonMemberStatus": 3
+    }
