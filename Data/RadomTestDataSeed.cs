@@ -18,13 +18,18 @@ namespace Personaltool.Data {
                 return;
             }
             if (config.ClearExistingData) {
-                connection.Persons.RemoveRange(connection.Persons);
+                // don't remove Persons that are connected to a user account
+                var connectedPersons = connection.Users.Include(u => u.Person).Select(u => u.Person).ToList();
+                connection.Persons.RemoveRange(connection.Persons.AsEnumerable().Except(connectedPersons));
                 connection.PersonsCareerLevels.RemoveRange(connection.PersonsCareerLevels);
                 connection.PersonsMemberStatus.RemoveRange(connection.PersonsMemberStatus);
                 connection.PersonsPositions.RemoveRange(connection.PersonsPositions);
                 connection.Positions.RemoveRange(connection.Positions);
                 connection.CareerLevels.RemoveRange(connection.CareerLevels);
                 connection.MemberStatus.RemoveRange(connection.MemberStatus);
+                await connection.SaveChangesAsync();
+                // this clears all actual data, add default data back in
+                await CCDefaultDataSeed.DoSeed(connection);
             }
             Random rand;
             if (config.Seed.HasValue) {
@@ -80,82 +85,93 @@ namespace Personaltool.Data {
             var positions = await connection.Positions.ToListAsync();
             var careerLevels = await connection.CareerLevels.ToListAsync();
             var memberStatus = await connection.MemberStatus.ToListAsync();
-            for (int i = 0;i < config.PersonCareerLevels;i++) {
-                var person = PickRandom(rand, persons);
-                var careerLevel = PickRandom(rand, careerLevels);
-                // get latest career level
-                var lastLevels = person.PersonsCareerLevels.Where(level => level.End == null).ToList();
-                if (lastLevels.Count > 0) {
-                    var lastLevel = lastLevels[0];
-                    var lastDate = lastLevel.Begin;
-                    if (lastDate > end) {
-                        continue;
+
+            if (persons.Any()) {
+                if (careerLevels.Any()) {
+                    for (int i = 0;i < config.PersonCareerLevels;i++) {
+                        var person = PickRandom(rand, persons);
+                        var careerLevel = PickRandom(rand, careerLevels);
+                        // get latest career level
+                        var lastLevels = person.PersonsCareerLevels.Where(level => level.End == null).ToList();
+                        if (lastLevels.Count > 0) {
+                            var lastLevel = lastLevels[0];
+                            var lastDate = lastLevel.Begin;
+                            if (lastDate > end) {
+                                continue;
+                            }
+                            var lastEndDate = RandomDate(rand, lastDate, end);
+                            lastLevel.End = lastEndDate;
+                            await connection.PersonsCareerLevels.AddAsync(new PersonsCareerLevel() {
+                                Begin = lastEndDate,
+                                CareerLevelID = careerLevel.CareerLevelID,
+                                End = null,
+                                PersonID = person.PersonID,
+                            });
+                        } else {
+                            var lastEndDate = RandomDate(rand, start, end);
+                            await connection.PersonsCareerLevels.AddAsync(new PersonsCareerLevel() {
+                                Begin = lastEndDate,
+                                CareerLevelID = careerLevel.CareerLevelID,
+                                End = null,
+                                PersonID = person.PersonID,
+                            });
+                        }
                     }
-                    var lastEndDate = RandomDate(rand, lastDate, end);
-                    lastLevel.End = lastEndDate;
-                    await connection.PersonsCareerLevels.AddAsync(new PersonsCareerLevel() {
-                        Begin = lastEndDate,
-                        CareerLevelID = careerLevel.CareerLevelID,
-                        End = null,
-                        PersonID = person.PersonID,
-                    });
-                } else {
-                    var lastEndDate = RandomDate(rand, start, end);
-                    await connection.PersonsCareerLevels.AddAsync(new PersonsCareerLevel() {
-                        Begin = lastEndDate,
-                        CareerLevelID = careerLevel.CareerLevelID,
-                        End = null,
-                        PersonID = person.PersonID,
-                    });
                 }
-            }
-            for (int i = 0;i < config.PersonMemberStatus;i++) {
-                var person = PickRandom(rand, persons);
-                var memberStatu = PickRandom(rand, memberStatus);
-                // get latest career level
-                var lastStatus = person.PersonsMemberStatus.Where(status => status.End == null).ToList();
-                if (lastStatus.Count > 0) {
-                    var lastStatu = lastStatus[0];
-                    var lastDate = lastStatu.Begin;
-                    if (lastDate > end) {
-                        continue;
+
+                if (memberStatus.Any()) {
+                    for (int i = 0;i < config.PersonMemberStatus;i++) {
+                        var person = PickRandom(rand, persons);
+                        var memberStatu = PickRandom(rand, memberStatus);
+                        // get latest career level
+                        var lastStatus = person.PersonsMemberStatus.Where(status => status.End == null).ToList();
+                        if (lastStatus.Count > 0) {
+                            var lastStatu = lastStatus[0];
+                            var lastDate = lastStatu.Begin;
+                            if (lastDate > end) {
+                                continue;
+                            }
+                            var lastEndDate = RandomDate(rand, lastDate, end);
+                            lastStatu.End = lastEndDate;
+                            await connection.PersonsMemberStatus.AddAsync(new PersonsMemberStatus() {
+                                Begin = lastEndDate,
+                                MemberStatusID = memberStatu.MemberStatusID,
+                                End = null,
+                                PersonID = person.PersonID,
+                            });
+                        } else {
+                            var lastEndDate = RandomDate(rand, start, end);
+                            await connection.PersonsMemberStatus.AddAsync(new PersonsMemberStatus() {
+                                Begin = lastEndDate,
+                                MemberStatusID = memberStatu.MemberStatusID,
+                                End = null,
+                                PersonID = person.PersonID,
+                            });
+                        }
                     }
-                    var lastEndDate = RandomDate(rand, lastDate, end);
-                    lastStatu.End = lastEndDate;
-                    await connection.PersonsMemberStatus.AddAsync(new PersonsMemberStatus() {
-                        Begin = lastEndDate,
-                        MemberStatusID = memberStatu.MemberStatusID,
-                        End = null,
-                        PersonID = person.PersonID,
-                    });
-                } else {
-                    var lastEndDate = RandomDate(rand, start, end);
-                    await connection.PersonsMemberStatus.AddAsync(new PersonsMemberStatus() {
-                        Begin = lastEndDate,
-                        MemberStatusID = memberStatu.MemberStatusID,
-                        End = null,
-                        PersonID = person.PersonID,
-                    });
                 }
-            }
-            for (int i = 0;i < config.PersonPositions;i++) {
-                var person = PickRandom(rand, persons);
-                if (person.PersonsPositions.Any(p => p.End == null) && rand.Next(2) == 0) {
-                    // remove a position
-                    var persPos = PickRandom(rand, person.PersonsPositions.Where(p => p.End == null).ToList());
-                    if (persPos.Begin > end) {
-                        continue; // failsafe
+
+                if (positions.Any()) {
+                    for (int i = 0;i < config.PersonPositions;i++) {
+                        var person = PickRandom(rand, persons);
+                        if (person.PersonsPositions.Any(p => p.End == null) && rand.Next(2) == 0) {
+                            // remove a position
+                            var persPos = PickRandom(rand, person.PersonsPositions.Where(p => p.End == null).ToList());
+                            if (persPos.Begin > end) {
+                                continue; // failsafe
+                            }
+                            persPos.End = RandomDate(rand, persPos.Begin, end);
+                        } else {
+                            // add a position
+                            var pos = PickRandom(rand, positions);
+                            await connection.PersonsPositions.AddAsync(new PersonsPosition() {
+                                Begin = RandomDate(rand, start, end),
+                                End = null,
+                                PersonID = person.PersonID,
+                                PositionID = pos.PositionID,
+                            });
+                        }
                     }
-                    persPos.End = RandomDate(rand, persPos.Begin, end);
-                } else {
-                    // add a position
-                    var pos = PickRandom(rand, positions);
-                    await connection.PersonsPositions.AddAsync(new PersonsPosition() {
-                        Begin = RandomDate(rand, start, end),
-                        End = null,
-                        PersonID = person.PersonID,
-                        PositionID = pos.PositionID,
-                    });
                 }
             }
             await connection.SaveChangesAsync();
