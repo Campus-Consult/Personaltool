@@ -2,9 +2,6 @@
 @using Personaltool.Models
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@{
-    ViewData["Privacy"] = "Datenschutzerklärung";
-}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +47,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy;<a> 2020 - Personaltool - </a><a asp-area="" asp-controller="Home" asp-action="Privacy">@ViewData["Privacy"]</a>
+            &copy;<a> 2020 - Personaltool - </a><a asp-area="" asp-controller="Home" asp-action="Privacy">Datenschutzerklärung</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
