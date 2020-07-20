@@ -17,7 +17,8 @@ Diese App verwendet einige Benutzergeheimnisse, die vor dem Start der App konfig
 Die benötigten Schlüssel sind dem folgenden Auszug aus der secrets.json zu entnehmen und müssen mit den zu verwendenden Geheimnissen gefüllt werden:
 
     {
-        "Authentication:AzureAd:ClientSecret": "<AzureAD ClientSecret>",
+        "AzureAd:ClientId": "<AzureAD ClientId>",
+        "AzureAd:ClientSecret": "<AzureAD ClientSecret>",
         "AuthMessageSenderOptions_Domain": "<Domain für SMTP Server>",
         "AuthMessageSenderOptions_UserName": "<Nutzername für SMTP Server>",
         "AuthMessageSenderOptions_SentFrom": "<Anzuzeigende Email-Adresse für SMTP Server>",
