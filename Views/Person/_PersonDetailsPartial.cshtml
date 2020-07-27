@@ -3,17 +3,17 @@
 <div class="card">
     <div class="card-header">
         <div class="d-flex">
-            <img class="svg mr-2" src="~/assets/bootstrap-icons/person-circle.svg" width="32" height="32" />
+            <i class="far fa-2x fa-user-circle mr-2"></i>
             <h4 class="flex-grow-1">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h4>
             <div class="flex-shrink-1 btn-group">
                 <button type="button" class="btn btn-sm btn-primary">
-                    <img class="svg align-text-bottom" src="~/assets/bootstrap-icons/journal-text.svg" width="24" height="24" />
+                    <i class="fas fa-lg fa-clipboard-list"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-primary">
-                    <img class="svg align-text-bottom" src="~/assets/bootstrap-icons/pencil.svg" width="24" height="24" />
+                    <i class="fas fa-lg fa-edit"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-primary">
-                    <img class="svg align-text-bottom" src="~/assets/bootstrap-icons/gear.svg" width="24" height="24" />
+                    <i class="fas fa-lg fa-cog"></i>
                 </button>
             </div>
         </div>
@@ -98,10 +98,10 @@
                     <td align="right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-light btn-sm">
-                                <img class="svg align-text-bottom" src="/assets/bootstrap-icons/journal-plus.svg" title="Change" width="18" height="20"/>
+                                <i class="fas fa-lg fa-plus-circle"></i>
                             </button>
                             <button type="button" class="btn btn-light btn-sm" data-toggle="collapse" data-target="#memberstatus_history">
-                                <img class="svg align-text-bottom" src="/assets/bootstrap-icons/clock-history.svg" title="History" width="17" height="18"/>
+                                <i class="far fa-lg fa-clock"></i>
                                 <span class="badge badge-light">
                                     @(Model.CurrentPersonsMemberStatus.Count()+Model.HistoryPersonsMemberStatus.Count())
                                 </span>
@@ -154,10 +154,10 @@
                     <td align="right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-light btn-sm">
-                                <img class="svg align-text-bottom" src="/assets/bootstrap-icons/journal-plus.svg" title="Change" width="18" height="20" />
+                                <i class="fas fa-lg fa-plus-circle"></i>
                             </button>
                             <button type="button" class="btn btn-light btn-sm" data-toggle="collapse" data-target="#carreerlevels_history">
-                                <img class="svg align-text-bottom" src="/assets/bootstrap-icons/clock-history.svg" title="History" width="17" height="18" />
+                                <i class="far fa-lg fa-clock"></i>
                                 <span class="badge badge-light">@(Model.CurrentPersonsCarreerLevels.Count()+Model.HistoryPersonsCarreerLevels.Count())</span>
                             </button>
                         </div>
@@ -212,10 +212,10 @@
                     <td align="right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-light btn-sm">
-                                <img class="svg align-text-bottom" src="/assets/bootstrap-icons/journal-plus.svg" title="Change" width="18" height="20" />
+                                <i class="fas fa-lg fa-plus-circle"></i>
                             </button>
                             <button type="button" class="btn btn-light btn-sm" data-toggle="collapse" data-target="#positions_history">
-                                <img class="svg align-text-bottom" src="/assets/bootstrap-icons/clock-history.svg" title="History" width="17" height="18" />
+                                <i class="far fa-lg fa-clock"></i>
                                 <span class="badge badge-light">@(Model.CurrentPersonsPositions.Count()+Model.HistoryPersonsPositions.Count())</span>
                             </button>
                         </div>
