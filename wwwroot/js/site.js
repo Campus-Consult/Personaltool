@@ -23,10 +23,6 @@ $(document).ready(function () {
 
 /* Load PersonDetailsPartial async */
 function loadPersonDetailsPartial(id) {
-    $("#person_details").load("/Person/PersonDetailsPartial?id=" + id, function (response, status, xhr) {
-        if (status == "success") {
-            replaceSVG();
-        }
-    });
+    $("#person_details").load("/Person/PersonDetailsPartial?id=" + id);
     // window.location.href = "#person_details";
 }
