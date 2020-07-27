@@ -6,3 +6,14 @@
     <h1 class="display-4">Hello IT-Team!</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+
+<h1>My Razor Page</h1>
+
+<component type="typeof(Counter)" render-mode="ServerPrerendered"
+           param-InitialValue="InitialValue" />
+
+@functions {
+    [BindProperty(SupportsGet = true)]
+    public int InitialValue { get; set; }
+}
