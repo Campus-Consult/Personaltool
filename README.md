@@ -9,7 +9,8 @@ Das Projekt basiert auf dem [ASP.NET Core 3.1 MVC](https://docs.microsoft.com/de
 1. Repository klonen oder herunterladen.
 2. Benötigte Benutzergeheimnisse anlegen. ([Siehe hier](###Benutzergeheimnisse))
 3. Datenbank migrieren. ([Siehe hier](###Datenbank))
-4. App starten.
+4. libman einrichten ([Siehe hier](###Libman))
+5. App starten.
 
 ### Benutzergeheimnisse:
 Diese App verwendet einige Benutzergeheimnisse, die vor dem Start der App konfiguriert werden müssen. Diese können mit dem [hier](https://docs.microsoft.com/de-de/aspnet/core/security/app-secrets?view=aspnetcore-3.1) erklärten Secret-Manager-Tool eingerichtet werden.
@@ -17,7 +18,8 @@ Diese App verwendet einige Benutzergeheimnisse, die vor dem Start der App konfig
 Die benötigten Schlüssel sind dem folgenden Auszug aus der secrets.json zu entnehmen und müssen mit den zu verwendenden Geheimnissen gefüllt werden:
 
     {
-        "Authentication:AzureAd:ClientSecret": "<AzureAD ClientSecret>",
+        "AzureAd:ClientId": "<AzureAD ClientId>",
+        "AzureAd:ClientSecret": "<AzureAD ClientSecret>",
         "AuthMessageSenderOptions_Domain": "<Domain für SMTP Server>",
         "AuthMessageSenderOptions_UserName": "<Nutzername für SMTP Server>",
         "AuthMessageSenderOptions_SentFrom": "<Anzuzeigende Email-Adresse für SMTP Server>",
@@ -38,3 +40,29 @@ In Linux/Mac Konsole:
     > dotnet ef database update
 
 Weitere Informationen bezüglich Migrationen findet sich in der offiziellen [Dokumentation](https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/).
+
+#### Datenbank Testing
+
+    "RandomTestSeedConfig": {
+        "Enabled": false, // this entire feature is disabled by default
+        "ClearExistingData": false, // if all existing data should be removed, doesn't remove Persons connected to Accounts
+        "Seed": null, // setting this to null causes the seed to be random, if it's a number, it's choosen as the seed
+        "Persons": 10,
+        "Positions": 5,
+        "CareerLevels": 4,
+        "MemberStatus": 3,
+        "PersonPositions": 10,
+        "PersonCareerLevels": 6,
+        "PersonMemberStatus": 3
+    }
+
+### Libman
+Um javascript/CSS Abhängigkeiten zu verwalten, wird libman benötigt.  
+Visual Studio: Rechtsklick auf die `libman.json` Datei, dann `Restore Client-Side Libraries` auswählen  
+Sonstige: Zuerst muss libman installiert werden:
+
+    dotnet tool install -g Microsoft.Web.LibraryManager.Cli
+
+Dann können die Abhängigkeiten heruntergeladen werden:
+
+    libman restore
