@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using NLog.Web;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Personaltool.Data;
 
 namespace Personaltool
 {
@@ -18,7 +21,26 @@ namespace Personaltool
             try
             {
                 logger.Debug("init main");
-                CreateHostBuilder(args).Build().Run();
+                var webHost = CreateHostBuilder(args).Build();
+                using (var scope = webHost.Services.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    var context = services.GetRequiredService<ApplicationDbContext>();
+                    #if !DEBUG
+                    // auto migration only on release
+                    context.Database.Migrate();
+                    #endif
+
+                    CCDefaultDataSeed.DoSeed(context).Wait();
+
+                    #if DEBUG
+                    // make sure to never seed random data in release build
+                    var config = services.GetRequiredService<IConfiguration>();
+                    var randomTestSeedConfig = config.GetSection("RandomTestSeedConfig").Get<RandomTestSeedConfig>();
+                    RandomTestDataSeed.DoSeed(context, randomTestSeedConfig).Wait();
+                    #endif
+            }
+            webHost.Run();
             }
             catch (Exception exception)
             {
