@@ -1,0 +1,9 @@
+﻿@model IEnumerable<MemberStatus>
+
+@{
+    ViewData["Title"] = "Mitgliederstatus - Übersicht";
+}
+
+@{
+    await Html.RenderPartialAsync("_MsListPartial", Model);
+}
