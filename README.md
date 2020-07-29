@@ -9,7 +9,8 @@ Das Projekt basiert auf dem [ASP.NET Core 3.1 MVC](https://docs.microsoft.com/de
 1. Repository klonen oder herunterladen.
 2. Benötigte Benutzergeheimnisse anlegen. ([Siehe hier](###Benutzergeheimnisse))
 3. Datenbank migrieren. ([Siehe hier](###Datenbank))
-4. App starten.
+4. libman einrichten ([Siehe hier](###Libman))
+5. App starten.
 
 ### Benutzergeheimnisse:
 Diese App verwendet einige Benutzergeheimnisse, die vor dem Start der App konfiguriert werden müssen. Diese können mit dem [hier](https://docs.microsoft.com/de-de/aspnet/core/security/app-secrets?view=aspnetcore-3.1) erklärten Secret-Manager-Tool eingerichtet werden.
@@ -54,3 +55,14 @@ Weitere Informationen bezüglich Migrationen findet sich in der offiziellen [Dok
         "PersonCareerLevels": 6,
         "PersonMemberStatus": 3
     }
+
+### Libman
+Um javascript/CSS Abhängigkeiten zu verwalten, wird libman benötigt.  
+Visual Studio: Rechtsklick auf die `libman.json` Datei, dann `Restore Client-Side Libraries` auswählen  
+Sonstige: Zuerst muss libman installiert werden:
+
+    dotnet tool install -g Microsoft.Web.LibraryManager.Cli
+
+Dann können die Abhängigkeiten heruntergeladen werden:
+
+    libman restore
