@@ -1,0 +1,70 @@
+﻿@model Person
+
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PersonID" />
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthdate" class="control-label"></label>
+                <input asp-for="Birthdate" class="form-control" />
+                <span asp-validation-for="Birthdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <select asp-for="Gender" asp-items="@Html.GetEnumSelectList<Gender>()" class="form-control"></select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailPrivate" class="control-label"></label>
+                <input asp-for="EmailPrivate" class="form-control" />
+                <span asp-validation-for="EmailPrivate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAssociaton" class="control-label"></label>
+                <input asp-for="EmailAssociaton" class="form-control" />
+                <span asp-validation-for="EmailAssociaton" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MobilePrivate" class="control-label"></label>
+                <input asp-for="MobilePrivate" class="form-control" />
+                <span asp-validation-for="MobilePrivate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdressStreet" class="control-label"></label>
+                <input asp-for="AdressStreet" class="form-control" />
+                <span asp-validation-for="AdressStreet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdressNr" class="control-label"></label>
+                <input asp-for="AdressNr" class="form-control" />
+                <span asp-validation-for="AdressNr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdressZIP" class="control-label"></label>
+                <input asp-for="AdressZIP" class="form-control" />
+                <span asp-validation-for="AdressZIP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdressCity" class="control-label"></label>
+                <input asp-for="AdressCity" class="form-control" />
+                <span asp-validation-for="AdressCity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

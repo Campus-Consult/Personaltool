@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Personaltool.Models.Person>
+
+<table class="table table-sm table-hover table-searchable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthdate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PersonsMemberStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birthdate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @foreach (PersonsMemberStatus personsMemberStatus in item.PersonsMemberStatus.Where(x => x.End is null))
+                    {
+                        @personsMemberStatus.MemberStatus.Name<br />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PersonID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PersonID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PersonID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

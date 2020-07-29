@@ -1,0 +1,78 @@
+﻿@model Person
+
+<h4>Person</h4>
+<hr />
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.FirstName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.FirstName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.LastName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.LastName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Birthdate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Birthdate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Gender)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Gender)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.EmailPrivate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.EmailPrivate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.EmailAssociaton)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.EmailAssociaton)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.MobilePrivate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.MobilePrivate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.AdressStreet)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.AdressStreet)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.AdressNr)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.AdressNr)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.AdressZIP)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.AdressZIP)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.AdressCity)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.AdressCity)
+    </dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="PersonID" />
+    <input type="submit" value="Delete" class="btn btn-danger" /> |
+    <a asp-action="Index">Back to List</a>
+</form>
