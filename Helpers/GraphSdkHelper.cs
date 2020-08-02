@@ -23,6 +23,10 @@ namespace Personaltool.Helpers {
             if (accessToken == null) {
                 throw new ArgumentException("access_token in AuthenticationProperties can't be null!");
             }
+            return GetAuthenticatedClient(accessToken);
+        }
+
+        public static IGraphServiceClient GetAuthenticatedClient(string accessToken) {
             return new GraphServiceClient(new DelegateAuthenticationProvider(
                 requestMessage =>
                 {

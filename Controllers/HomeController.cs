@@ -33,15 +33,15 @@ namespace Personaltool.Controllers
         }
 
         // GET: /Home/Index/
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            // ms Graph example
-            // var auth = await HttpContext.AuthenticateAsync();
-            // if (auth.Properties == null) { // not authenticated
-            //     return View();
-            // }
-            // var client = GraphSdkHelper.GetAuthenticatedClient(auth.Properties);
-            // var user = await client.Me.Request().GetAsync();
+            if (User.Identity.IsAuthenticated) {
+                // ms Graph example
+                var auth = await HttpContext.GetTokenAsync("access_token");
+                var client = GraphSdkHelper.GetAuthenticatedClient(auth);
+                var user = await client.Me.Request().GetAsync();
+                _logger.LogDebug("EMail: "+user.Mail);
+            }
             return View();
         }
 

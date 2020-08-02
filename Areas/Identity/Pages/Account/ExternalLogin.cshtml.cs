@@ -111,6 +111,9 @@ namespace Personaltool.Areas.Identity.Pages.Account
 
                 var props = new AuthenticationProperties();
                 props.StoreTokens(info.AuthenticationTokens);
+                // foreach (var token in info.AuthenticationTokens) {
+                //     _logger.LogDebug(token.Name+"("+token.Value.Length+"): "+token.Value);
+                // }
 
                 await _signInManager.SignInAsync(user, props, info.LoginProvider);
 

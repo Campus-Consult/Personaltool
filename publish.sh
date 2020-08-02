@@ -1,0 +1,1 @@
+cd "bin/Release/netcoreapp3.1"; tar cvzf - "publish" | ssh $SSH_LOGIN "cd /tmp; rm -r publish; tar zxvf -"
