@@ -64,7 +64,7 @@ namespace Personaltool.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonID,FirstName,LastName,Birthdate,Gender,EmailPrivate,EmailAssociaton,MobilePrivate,AdressStreet,AdressNr,AdressZIP,AdressCity")] Person person)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,Birthdate,Gender,EmailPrivate,EmailAssociaton,MobilePrivate,AdressStreet,AdressNr,AdressZIP,AdressCity")] Person person)
         {
             if (ModelState.IsValid)
             {
