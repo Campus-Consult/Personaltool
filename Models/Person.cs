@@ -26,7 +26,7 @@ namespace Personaltool.Models
         public string LastName { get; set; }
 
         [Display(Name = "Geburtstag")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
 
         [Display(Name = "Geschlecht")]
