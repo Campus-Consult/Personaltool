@@ -12,7 +12,7 @@ namespace Personaltool.Data
     /// <summary>
     /// Application database context, register database sets here for migration
     /// </summary>
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
