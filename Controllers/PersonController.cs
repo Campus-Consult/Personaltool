@@ -24,7 +24,15 @@ namespace Personaltool.Controllers
         // GET: Person
         public IActionResult Index()
         {
-            var persons = _context.Persons.Include(x => x.PersonsMemberStatus).ThenInclude(x => x.MemberStatus).Include(x => x.PersonsCareerLevels).ThenInclude(x => x.CareerLevel).Include(x => x.PersonsPositions).ThenInclude(x => x.Position);
+            var persons = _context.Persons.
+                Include(x => x.PersonsMemberStatus).
+                ThenInclude(x => x.MemberStatus).
+                Include(x => x.PersonsCareerLevels).
+                ThenInclude(x => x.CareerLevel).
+                Include(x => x.PersonsPositions).
+                ThenInclude(x => x.Position).
+                OrderBy(x => x.LastName).
+                ThenBy(x => x.FirstName);
 
             return View(persons);
         }
