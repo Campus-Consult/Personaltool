@@ -6,12 +6,19 @@
 }
 
 <h1>Index</h1>
-<div class="input-group">
-    <div class="input-group-prepend">
-        <span class="input-group-text"><i class="fas fa-search"></i></span>
+
+<div class="d-flex">
+    <div class="flex-grow-1 p-2">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input class="form-control" id="search-input" type="text" placeholder="Suchen..">
+        </div>
     </div>
-    <input class="form-control" id="search-input" type="text" placeholder="Suchen..">
+    <div class="p-2">
+        <a asp-action="Create" class="btn btn-primary">Create new</a>
+    </div>
 </div>
-<br>
 
 @{await Html.RenderPartialAsync("_ListPartial", Model);}
