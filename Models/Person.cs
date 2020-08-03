@@ -26,7 +26,7 @@ namespace Personaltool.Models
         public string LastName { get; set; }
 
         [Display(Name = "Geburtstag")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime Birthdate { get; set; }
 
         [Display(Name = "Geschlecht")]
@@ -60,10 +60,13 @@ namespace Personaltool.Models
         //public ApplicationUser ApplicationUser { get; set; }
         //Exception: http://go.microsoft.com/fwlink/?LinkId=724062
 
+        [Display(Name = "Mitgliedsstatus")]
         public ICollection<PersonsMemberStatus> PersonsMemberStatus { get; set; }
 
+        [Display(Name = "Karrierelevel")]
         public ICollection<PersonsCareerLevel> PersonsCareerLevels { get; set; }
-      
+
+        [Display(Name = "Posten")]
         public ICollection<PersonsPosition> PersonsPositions { get; set; }
 
     }

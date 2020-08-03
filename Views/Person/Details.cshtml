@@ -1,0 +1,16 @@
+﻿@model Personaltool.ViewModels.Person.PersonDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h1>Details</h1>
+
+    @{await Html.RenderPartialAsync("_DetailsPartial", Model);}
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.PersonID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
