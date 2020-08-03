@@ -112,7 +112,7 @@ namespace Personaltool.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonExists(person.PersonID))
+                    if (!await PersonExistsAsync(person.PersonID))
                     {
                         return NotFound();
                     }
@@ -155,9 +155,9 @@ namespace Personaltool.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PersonExists(int id)
+        private async Task<bool> PersonExistsAsync(int id)
         {
-            return _context.Persons.Any(e => e.PersonID == id);
+            return await _context.Persons.AnyAsync(e => e.PersonID == id);
         }
     }
 }
