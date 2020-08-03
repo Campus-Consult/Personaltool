@@ -60,10 +60,13 @@ namespace Personaltool.Models
         //public ApplicationUser ApplicationUser { get; set; }
         //Exception: http://go.microsoft.com/fwlink/?LinkId=724062
 
+        [Display(Name = "Mitgliedsstatus")]
         public ICollection<PersonsMemberStatus> PersonsMemberStatus { get; set; }
 
+        [Display(Name = "Karrierelevel")]
         public ICollection<PersonsCareerLevel> PersonsCareerLevels { get; set; }
-      
+
+        [Display(Name = "Posten")]
         public ICollection<PersonsPosition> PersonsPositions { get; set; }
 
     }
