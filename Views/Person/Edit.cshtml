@@ -4,12 +4,15 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="container">
+    <h1>Edit</h1>
 
-@{await Html.RenderPartialAsync("_EditPartial", Model);}
+    @{await Html.RenderPartialAsync("_EditPartial", Model);}
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
 </div>
 
 @section Scripts {

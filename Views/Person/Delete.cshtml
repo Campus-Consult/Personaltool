@@ -5,11 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<div class="container">
+    <h1>Delete</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    
-    @{await Html.RenderPartialAsync("_DeletePartial", Model);}
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
 
+        @{await Html.RenderPartialAsync("_DeletePartial", Model);}
+
+    </div>
 </div>

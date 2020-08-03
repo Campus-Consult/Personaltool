@@ -4,12 +4,12 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-@{await Html.RenderPartialAsync("_CreatePartial", Model);}
-
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="container">
+    <h1>Create</h1>
+    @{await Html.RenderPartialAsync("_CreatePartial", Model);}
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
 
 @section Scripts {
