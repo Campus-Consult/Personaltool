@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,21 +43,20 @@ namespace Personaltool
             //  Add the application db context
             services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
-            //  Add Identity using Entity Framework Core
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                //.AddDefaultUI()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = $"/Identity/Account/Login";
-                options.LogoutPath = $"/Identity/Account/Logout";
-                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+                options.LoginPath = $"/Account/Login";
+                options.LogoutPath = $"/Account/Logout";
+                options.AccessDeniedPath = $"/Account/AccessDenied";
             });
 
-            services.AddAuthentication(/*AzureADDefaults.AuthenticationScheme*/)
+            services.AddAuthentication(options => {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                })
+                .AddCookie()
                 .AddOpenIdConnect(options => {
+                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     var azureConf = Configuration.GetSection("AzureAd");
                     options.CallbackPath = azureConf["CallbackPath"];
                     options.ClientId = azureConf["ClientId"];
@@ -66,6 +68,7 @@ namespace Personaltool
                     }
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
+                    options.DisableTelemetry = true;
                 });
 
             services.Configure<CookiePolicyOptions>(options =>

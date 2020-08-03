@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Personaltool.Helpers;
 using Personaltool.Models;
-using Personaltool.Helpers;
+using System.Security.Claims;
 
 namespace Personaltool.Controllers
 {
@@ -22,25 +22,24 @@ namespace Personaltool.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAuthenticationService _authService;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<ApplicationUser> userManager, IAuthenticationService authService)
+        public HomeController(ILogger<HomeController> logger, IAuthenticationService authService)
         {
             _logger = logger;
-            _userManager = userManager;
             _authService = authService;
         }
 
         // GET: /Home/Index/
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated) {
+                var mail = User.FindFirstValue(ClaimTypes.Email);
                 // ms Graph example
-                var auth = await HttpContext.GetTokenAsync("access_token");
-                var client = GraphSdkHelper.GetAuthenticatedClient(auth);
-                var user = await client.Me.Request().GetAsync();
-                _logger.LogDebug("EMail: "+user.Mail);
+                // var auth = await HttpContext.GetTokenAsync("access_token");
+                // var client = GraphSdkHelper.GetAuthenticatedClient(auth);
+                // var user = await client.Me.Request().GetAsync();
+                // _logger.LogDebug("EMail: "+mail);
             }
             return View();
         }
