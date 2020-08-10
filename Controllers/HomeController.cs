@@ -34,10 +34,8 @@ namespace Personaltool.Controllers
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated) {
-                var mail = User.FindFirstValue(ClaimTypes.Email);
                 // ms Graph example
-                // var auth = await HttpContext.GetTokenAsync("access_token");
-                // var client = GraphSdkHelper.GetAuthenticatedClient(auth);
+                // var client = await HttpContext.GetGraphServiceClient();
                 // var user = await client.Me.Request().GetAsync();
                 // _logger.LogDebug("EMail: "+mail);
             }

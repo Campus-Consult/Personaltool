@@ -14,7 +14,7 @@ namespace Personaltool.Controllers
     /// <summary>
     /// PersonController, controlls person managing actions 
     /// </summary>
-    [Authorize]
+    [Authorize(Policy = "Admin")]
     public class PersonController : Controller
     {
         private readonly ApplicationDbContext _context;

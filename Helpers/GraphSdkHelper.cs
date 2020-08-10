@@ -30,6 +30,8 @@ namespace Personaltool.Helpers {
 
         public static async Task<IGraphServiceClient> GetGraphServiceClient(this HttpContext httpContext) {
             var accessToken = await httpContext.GetTokenAsync("access_token");
+            // var expiresAt = await httpContext.GetTokenAsync("expires_at");
+            // Console.WriteLine("expiresAt: " + expiresAt);
             return GetAuthenticatedClient(accessToken);
         }
 
