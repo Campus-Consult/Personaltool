@@ -140,16 +140,17 @@ namespace Personaltool
 
                 spa.Options.StartupTimeout = new TimeSpan(0, 5, 0);
 
-                /*  veraltet             
+               
+                /*             Ausfuerung erzeugt Fehler / veraltet   
                 spa.UseSpaPrerendering(options =>
                 {
-                    options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.bundle.js";
-                    options.BootModuleBuilder = env.IsDevelopment()
-                        ? new AngularCliBuilder(npmScript: "build:prod")
-                        : null;
-                    options.ExcludeUrls = new[] { "/sockjs-node" };
-                }); */
-
+                    options.SupplyData = (context, data) =>
+                    {
+                        // Creates a new value called isHttpsRequest that's passed to TypeScript code
+                        data["isHttpsRequest"] = context.Request.IsHttps;
+                    };
+                });
+                */
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
