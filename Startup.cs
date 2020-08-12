@@ -1,26 +1,23 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Personaltool.Data;
 using Personaltool.Models;
 using Personaltool.Services;
+
+
 
 namespace Personaltool
 {
@@ -76,14 +73,16 @@ namespace Personaltool
             });
 
             services.AddAuthentication(/*AzureADDefaults.AuthenticationScheme*/)
-                .AddOpenIdConnect(options => {
+                .AddOpenIdConnect(options =>
+                {
                     var azureConf = Configuration.GetSection("AzureAd");
                     options.CallbackPath = azureConf["CallbackPath"];
                     options.ClientId = azureConf["ClientId"];
                     options.ClientSecret = azureConf["ClientSecret"];
                     options.Authority = $"https://login.microsoftonline.com/{azureConf["TenantId"]}/v2.0";
                     options.ResponseType = OpenIdConnectResponseType.Code;
-                    foreach (var scope in azureConf["Scopes"].Split(' ', StringSplitOptions.RemoveEmptyEntries)) {
+                    foreach (var scope in azureConf["Scopes"].Split(' ', StringSplitOptions.RemoveEmptyEntries))
+                    {
                         options.Scope.Add(scope);
                     }
                     options.GetClaimsFromUserInfoEndpoint = true;
@@ -111,6 +110,12 @@ namespace Personaltool
                 options.Filters.Add(new AuthorizeFilter(policy));
             });
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -127,6 +132,30 @@ namespace Personaltool
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSpa(spa =>
+            {
+
+                spa.Options.SourcePath = "ClientApp";
+
+                spa.Options.StartupTimeout = new TimeSpan(0, 5, 0);
+
+                /*  veraltet             
+                spa.UseSpaPrerendering(options =>
+                {
+                    options.BootModulePath = $"{spa.Options.SourcePath}/dist-server/main.bundle.js";
+                    options.BootModuleBuilder = env.IsDevelopment()
+                        ? new AngularCliBuilder(npmScript: "build:prod")
+                        : null;
+                    options.ExcludeUrls = new[] { "/sockjs-node" };
+                }); */
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
+
             app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();

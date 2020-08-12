@@ -49,6 +49,7 @@
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
+
         </main>
     </div>
 
@@ -61,6 +62,12 @@
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script src="~/dist/inline.bundle.js" asp-append-version="true"></script>
+    <script src="~/dist/polyfills.bundle.js" asp-append-version="true"></script>
+    <script src="~/dist/styles.bundle.js" asp-append-version="true"></script>
+    <script src="~/dist/vendor.bundle.js" asp-append-version="true"></script>
+    <script src="~/dist/main.bundle.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
