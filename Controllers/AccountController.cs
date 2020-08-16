@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Personaltool.Controllers
 {
-  [Route("api/Account")]
   public class AccountController : Controller
   {
     public IActionResult Login()

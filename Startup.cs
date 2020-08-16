@@ -121,30 +121,6 @@ namespace Personaltool
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
- 
-            app.UseSpa(spa =>
-            {
-
-                spa.Options.SourcePath = "ClientApp";
-
-                spa.Options.StartupTimeout = new TimeSpan(0, 5, 0);
-
-               
-                /*             Ausfuerung erzeugt Fehler / veraltet   
-                spa.UseSpaPrerendering(options =>
-                {
-                    options.SupplyData = (context, data) =>
-                    {
-                        // Creates a new value called isHttpsRequest that's passed to TypeScript code
-                        data["isHttpsRequest"] = context.Request.IsHttps;
-                    };
-                });
-                */
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
 
             app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
             app.UseHttpsRedirection();
@@ -162,6 +138,30 @@ namespace Personaltool
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+            });
+ 
+            app.UseSpa(spa =>
+            {
+
+                spa.Options.SourcePath = "ClientApp";
+
+                spa.Options.StartupTimeout = new TimeSpan(0, 0, 5);
+
+               
+                /*             Ausfuerung erzeugt Fehler / veraltet   
+                spa.UseSpaPrerendering(options =>
+                {
+                    options.SupplyData = (context, data) =>
+                    {
+                        // Creates a new value called isHttpsRequest that's passed to TypeScript code
+                        data["isHttpsRequest"] = context.Request.IsHttps;
+                    };
+                });
+                */
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }
