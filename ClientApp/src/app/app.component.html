@@ -1,3 +1,7 @@
 <h1>Hallo ich bin eine Angular app</h1>
 <p>Das ist meine base URL: {{baseURL}}</p>
+<ul *ngIf="authUserData.authenticated">
+    <li *ngFor="let item of authUserData.claims | keyvalue">{{item.key}}: {{item.value}}</li>
+</ul>
+<div *ngIf="!authUserData.authenticated">Your aren't logged in, please <a href="Account/Login">log in</a></div>
 <router-outlet></router-outlet>

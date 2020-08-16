@@ -1,10 +1,14 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Personaltool.Controllers
 {
+  [AllowAnonymous]
   public class AccountController : Controller
   {
     public IActionResult Login()
@@ -25,6 +29,27 @@ namespace Personaltool.Controllers
       }, new AuthenticationProperties {
         RedirectUri = "/",
       });
+    }
+
+    public IActionResult AuthStatus() {
+      if (User.Identity.IsAuthenticated) {
+        var status = new AuthStatusData() {
+          Authenticated = true,
+          Claims = User.Claims.ToDictionary(c => c.Type, c => c.Value),
+        };
+        return Json(status);
+      } else {
+        var status = new AuthStatusData() {
+          Authenticated = false,
+          Claims = new Dictionary<string, string>(),
+        };
+        return Json(status);
+      }
+    }
+
+    public class AuthStatusData {
+      public bool Authenticated { get; set; }
+      public Dictionary<string, string> Claims { get; set; }
     }
   }
 }

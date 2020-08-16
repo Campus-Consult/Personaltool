@@ -11,7 +11,10 @@ using Personaltool.ViewModels.Person;
 
 namespace Personaltool.Controllers
 {
-    [Authorize]
+    /// <summary>
+    /// PersonController, controlls person managing actions 
+    /// </summary>
+    [Authorize(Policy = "Admin")]
     public class PersonController : Controller
     {
         private readonly ApplicationDbContext _context;

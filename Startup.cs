@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -23,8 +26,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Personaltool.Data;
+using Personaltool.Helpers;
 using Personaltool.Models;
 using Personaltool.Services;
 
@@ -52,11 +57,29 @@ namespace Personaltool
                 options.AccessDeniedPath = $"/Account/AccessDenied";
             });
 
-            services.AddAuthentication(options => {
+            services.AddAuthorization(
+                options => {
+                    options.AddPolicy("Admin", policy => policy.RequireClaim("Admin"));
+                })
+                .AddAuthentication(options => {
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 })
-                .AddCookie()
+                .AddCookie(
+                    options => {
+                        options.Events.OnSigningIn = context => {
+                            // foreach(var claim in context.Principal.Claims) {
+                            //     Console.WriteLine(claim.Type+": "+claim.Value);
+                            // }
+                            // remove id token, all claims are saved already so it just takes up cookie space
+                            // this wouldn't be an issue if the cookie size wouldn't be over 8k with this, which is
+                            // more than apache can handle
+                            context.Properties.StoreTokens(context.Properties.GetTokens().Where(t => t.Name != "id_token"));
+                            return Task.CompletedTask;
+                        };
+                        
+                    }
+                )
                 .AddOpenIdConnect(options => {
                     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     var azureConf = Configuration.GetSection("AzureAd");
@@ -71,6 +94,28 @@ namespace Personaltool
                     options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
                     options.DisableTelemetry = true;
+                    options.Events.OnUserInformationReceived = async ctx => {
+                        // foreach(var token in ctx.Properties.GetTokens()) {
+                        //     Console.WriteLine(token.Name);
+                        //     Console.WriteLine(token.Value);
+                        // }
+                        var graphClient = GraphSdkHelper.GetAuthenticatedClient(ctx.Properties.GetTokenValue("access_token"));
+                        var groups = await graphClient.Me.MemberOf.Request().GetAsync();
+                        var groupClaimMapping = Configuration.GetSection("SharepointGroupClaimMapping");
+                        var claims = groups
+                            // get the Claim (if any) configued for this group
+                            .Select(group => groupClaimMapping.GetValue<string>(group.Id))
+                            .Where(claim => claim != null)
+                            // more than one group can map to a claim
+                            .Distinct()
+                            // the value of the claim doesn't matter, only the type is checked
+                            .Select(claim => new Claim(claim, "_")).ToList();
+                        if (claims.Count != 0) {
+                            var appIdentity = new ClaimsIdentity(claims);
+
+                            ctx.Principal.AddIdentity(appIdentity);
+                        }
+                    };
                 });
 
             services.Configure<CookiePolicyOptions>(options =>
