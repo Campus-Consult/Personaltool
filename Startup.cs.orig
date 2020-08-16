@@ -1,4 +1,6 @@
 using System;
+<<<<<<< HEAD
+=======
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -7,15 +9,18 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+>>>>>>> apache-deploy
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+<<<<<<< HEAD
+=======
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
+>>>>>>> apache-deploy
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +32,8 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Personaltool.Data;
 using Personaltool.Models;
 using Personaltool.Services;
+
+
 
 namespace Personaltool
 {
@@ -52,6 +59,11 @@ namespace Personaltool
                 options.AccessDeniedPath = $"/Account/AccessDenied";
             });
 
+<<<<<<< HEAD
+            services.AddAuthentication(/*AzureADDefaults.AuthenticationScheme*/)
+                .AddOpenIdConnect(options =>
+                {
+=======
             services.AddAuthentication(options => {
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
@@ -59,13 +71,15 @@ namespace Personaltool
                 .AddCookie()
                 .AddOpenIdConnect(options => {
                     options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+>>>>>>> apache-deploy
                     var azureConf = Configuration.GetSection("AzureAd");
                     options.CallbackPath = azureConf["CallbackPath"];
                     options.ClientId = azureConf["ClientId"];
                     options.ClientSecret = azureConf["ClientSecret"];
                     options.Authority = $"https://login.microsoftonline.com/{azureConf["TenantId"]}/v2.0";
                     options.ResponseType = OpenIdConnectResponseType.Code;
-                    foreach (var scope in azureConf["Scopes"].Split(' ', StringSplitOptions.RemoveEmptyEntries)) {
+                    foreach (var scope in azureConf["Scopes"].Split(' ', StringSplitOptions.RemoveEmptyEntries))
+                    {
                         options.Scope.Add(scope);
                     }
                     options.GetClaimsFromUserInfoEndpoint = true;
@@ -117,11 +131,7 @@ namespace Personaltool
                 app.UseHsts();
             }
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
- 
+<<<<<<< HEAD
             app.UseSpa(spa =>
             {
 
@@ -144,6 +154,11 @@ namespace Personaltool
                 {
                     spa.UseAngularCliServer(npmScript: "start");
                 }
+=======
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+>>>>>>> apache-deploy
             });
 
             app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
