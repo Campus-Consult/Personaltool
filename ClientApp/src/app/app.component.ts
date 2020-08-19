@@ -8,7 +8,7 @@ import { AuthUserService, AuthData } from './services/authuser.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public baseURL:string;
+  public baseURL: string;
   public authUserData: AuthData;
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string, private authUserService: AuthUserService){
     this.baseURL = baseUrl;

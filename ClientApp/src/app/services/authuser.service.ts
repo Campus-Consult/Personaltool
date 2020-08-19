@@ -1,24 +1,24 @@
 
 import { Injectable, Inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 export interface AuthData {
     authenticated: boolean;
     claims: {[key: string]: string};
 }
 
-const MAIL_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
+const MAIL_CLAIM = 'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress';
 
-@Injectable()  
+@Injectable()
 export class AuthUserService {
 
     authData: AuthData | null = null;
     constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
 
     }
-    
+
     public getAuthStatus(): Observable<AuthData> {
         if (this.authData == null) {
             return this.httpClient.get<AuthData>(this.baseUrl + 'Account/AuthStatus')
