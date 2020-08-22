@@ -36,6 +36,7 @@ namespace Personaltool.Controllers
         var status = new AuthStatusData() {
           Authenticated = true,
           Claims = User.Claims.ToDictionary(c => c.Type, c => c.Value),
+          Permissions = User.FindFirst(c => c.Type == "Permissions").Value.Split(",").ToList(),
         };
         return Json(status);
       } else {
@@ -50,6 +51,7 @@ namespace Personaltool.Controllers
     public class AuthStatusData {
       public bool Authenticated { get; set; }
       public Dictionary<string, string> Claims { get; set; }
+      public List<string> Permissions { get; set; }
     }
   }
 }

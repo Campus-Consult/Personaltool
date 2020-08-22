@@ -94,7 +94,7 @@ namespace Personaltool
                     // options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
                     options.DisableTelemetry = true;
-                    options.Events.OnUserInformationReceived = async ctx => {
+                    options.Events.OnTicketReceived = async ctx => {
                         // foreach(var token in ctx.Properties.GetTokens()) {
                         //     Console.WriteLine(token.Name);
                         //     Console.WriteLine(token.Value);
@@ -102,14 +102,15 @@ namespace Personaltool
                         var graphClient = GraphSdkHelper.GetAuthenticatedClient(ctx.Properties.GetTokenValue("access_token"));
                         var groups = await graphClient.Me.MemberOf.Request().GetAsync();
                         var groupClaimMapping = Configuration.GetSection("SharepointGroupClaimMapping");
-                        var claims = groups
+                        var permissions = groups
                             // get the Claim (if any) configued for this group
                             .Select(group => groupClaimMapping.GetValue<string>(group.Id))
                             .Where(claim => claim != null)
                             // more than one group can map to a claim
-                            .Distinct()
+                            .Distinct();
                             // the value of the claim doesn't matter, only the type is checked
-                            .Select(claim => new Claim(claim, "_")).ToList();
+                        var claims = permissions.Select(claim => new Claim(claim, "_")).ToList();
+                        claims.Add(new Claim("Permissions", String.Join(",",permissions))); // temp solution
                         if (claims.Count != 0) {
                             var appIdentity = new ClaimsIdentity(claims);
 
@@ -190,7 +191,7 @@ namespace Personaltool
 
                 spa.Options.SourcePath = "ClientApp";
 
-                spa.Options.StartupTimeout = new TimeSpan(0, 0, 5);
+                spa.Options.StartupTimeout = new TimeSpan(0, 0, 20);
 
                
                 /*             Ausfuerung erzeugt Fehler / veraltet   

@@ -10,11 +10,15 @@ import { AuthUserService, User } from './services/authuser.service';
 export class AppComponent implements OnInit {
   public baseURL: string;
   public authUser: User;
+  public permissions: string[] = [];
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string, private authUserService: AuthUserService){
     this.baseURL = baseUrl;
   }
   ngOnInit(): void {
-    this.authUserService.currentUser.subscribe(user => {this.authUser = user; console.log(user)});
+    this.authUserService.currentUser.subscribe(user => {
+      this.authUser = user;
+      this.permissions = (user || {permissions: []}).permissions;
+    });
  /*    const url = '';
     let body: any;
     this.http.post(url, body); */

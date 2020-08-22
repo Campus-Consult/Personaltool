@@ -3,10 +3,12 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 export interface AuthData {
     authenticated: boolean;
     claims: {[key: string]: string};
+    permissions: string[],
 }
 
 export interface User {
@@ -24,7 +26,7 @@ export class AuthUserService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    constructor(private httpClient: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) {
         this.currentUserSubject = new BehaviorSubject<User>(null);
         this.currentUser = this.currentUserSubject.asObservable();
         this.refreshAuthStatus();
@@ -39,10 +41,7 @@ export class AuthUserService {
                         email: data.claims[MAIL_CLAIM],
                         claims: data.claims,
                         // TODO issue #51
-                        permissions: Object.entries(data.claims)
-                            // flatMap isn't is this standard yet :(
-                            .filter(([_, val]) => val == '_')
-                            .map(([key, _]) => key),
+                        permissions: data.permissions,
                     };
                     this.currentUserSubject.next(user);
                 } else {
