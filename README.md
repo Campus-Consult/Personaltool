@@ -66,3 +66,24 @@ Sonstige: Zuerst muss libman installiert werden:
 Dann können die Abhängigkeiten heruntergeladen werden:
 
     libman restore
+
+
+## Deployment
+This app is deployed on an Ubuntu 18.04 machine as a service behind an apache Reverse Proxy which handles https, which is handled via LetsEncrypt. The service file is located at `Deploy/dotnet-personaltool.service`, the apache config files are `personaltool.conf` (pretty much just a redirect to the https version) and `personaltool-le-ssl.conf` (https version with letsencrypt and proxy headers). The `appsettings.Release.json` has all sensitive information removed, but it changes the internal port to 5002 because 5000 is already used on the server.
+
+To deploy the current version to the server, first use
+
+    export SSH_LOGIN=user@server.com
+
+and replace `user@server.com` with the actual SSH credentials, then use
+
+    bash publish.sh
+
+to build everything and transfer the binaries to the `/tmp` directory on the server. Use SSH to log on to the server and then use
+
+    cp -r /tmp/publish /var/www/personaltool
+
+to copy everything in the proper directory. To restart the application, for changes to take effect use
+
+    sudo service dotnet-personaltool restart
+

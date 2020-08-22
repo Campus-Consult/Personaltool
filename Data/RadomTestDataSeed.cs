@@ -12,15 +12,15 @@ namespace Personaltool.Data {
     public class RandomTestDataSeed {
 
         public static readonly string[] WORDS = new string[]{"Lorem", "Ipsum", "Dolar", "Si", "Achmet", "Greetings", "From", "Germany", "Beer", "Campus", "Consult"};
-        public static readonly Gender[] ALL_GENDER = new Gender[]{Gender.FEMALE, Gender.MALE, Gender.DIVERSE};
+        public static readonly Gender[] ALL_GENDER = (Gender[])Enum.GetValues(typeof(Gender));
         public static async Task DoSeed(ApplicationDbContext connection, RandomTestSeedConfig config) {
             if (!config.Enabled) {
                 return;
             }
             if (config.ClearExistingData) {
-                // don't remove Persons that are connected to a user account
-                var connectedPersons = connection.Users.Include(u => u.Person).Select(u => u.Person).ToList();
-                connection.Persons.RemoveRange(connection.Persons.AsEnumerable().Except(connectedPersons));
+                if (!config.KeepPersons) {
+                    connection.Persons.RemoveRange(connection.Persons);
+                }
                 connection.PersonsCareerLevels.RemoveRange(connection.PersonsCareerLevels);
                 connection.PersonsMemberStatus.RemoveRange(connection.PersonsMemberStatus);
                 connection.PersonsPositions.RemoveRange(connection.PersonsPositions);
@@ -218,6 +218,8 @@ namespace Personaltool.Data {
         /// whether or not Persons, Positions, CareerLevels, MemberStatus, PersonPositions,
         /// PersonCareerLevels and PersonMemberStatus should be cleared before seeding test data
         public bool ClearExistingData { get; set; }
+        // even if clearing existing data, keep persons
+        public bool KeepPersons { get; set; }
         // initial Seed for the random instance
         public int? Seed { get; set; }
         public int Persons { get; set; }
