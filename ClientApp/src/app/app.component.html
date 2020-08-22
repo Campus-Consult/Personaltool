@@ -1,7 +1,56 @@
-<h1>Hallo ich bin eine Angular app</h1>
-<p>Das ist meine base URL: {{baseURL}}</p>
-<ul *ngIf="authUserData.authenticated">
-    <li *ngFor="let item of authUserData.claims | keyvalue">{{item.key}}: {{item.value}}</li>
-</ul>
-<div *ngIf="!authUserData.authenticated">Your aren't logged in, please <a href="Account/Login">log in</a></div>
-<router-outlet></router-outlet>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" >Personaltool</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul *ngIf="authUser != null" class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" title="Manage">Hello {{authUser.name}}!</a><!-- TODO this should lead to the users personal profile -->
+                    </li>
+                    <li class="nav-item">
+                        <form class="form-inline" asp-controller="Account" asp-action="Logout">
+                            <button type="submit" class="nav-link btn btn-link text-dark">Logout<i class="fas ml-2 fa-sign-out-alt"></i></button>
+                        </form>
+                    </li>
+                </ul>
+                <ul *ngIf="authUser == null" class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="Account/Login">Login<i class="fas ml-2 fa-sign-in-alt"></i></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav flex-grow-1">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/">Home</a>
+                    </li>
+                    <!-- TODO: only authenticated-->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Person">Person</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Home/Privacy">Privacy</a> <!-- TODO route through angular-->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Home/LegalNotice">Impressum</a> <!-- TODO route through angular-->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container-fluid">
+    <!--<partial name="_CookieConsentPartial" />-->
+    <main role="main" class="pb-3">
+        <router-outlet></router-outlet>
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container-fluid">
+        &copy; 2020 - Personaltool - <a href="Home/Privacy">Privacy</a> <!-- TODO route through angular-->
+    </div>
+</footer>

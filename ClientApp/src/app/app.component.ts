@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthUserService, AuthData } from './services/authuser.service';
+import { AuthUserService, User } from './services/authuser.service';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +9,12 @@ import { AuthUserService, AuthData } from './services/authuser.service';
 })
 export class AppComponent implements OnInit {
   public baseURL: string;
-  public authUserData: AuthData;
+  public authUser: User;
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string, private authUserService: AuthUserService){
     this.baseURL = baseUrl;
   }
   ngOnInit(): void {
-    this.authUserService.getAuthStatus().subscribe(data => this.authUserData = data);
+    this.authUserService.currentUser.subscribe(user => {this.authUser = user; console.log(user)});
  /*    const url = '';
     let body: any;
     this.http.post(url, body); */

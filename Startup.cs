@@ -91,7 +91,7 @@ namespace Personaltool
                     foreach (var scope in azureConf["Scopes"].Split(' ', StringSplitOptions.RemoveEmptyEntries)) {
                         options.Scope.Add(scope);
                     }
-                    options.GetClaimsFromUserInfoEndpoint = true;
+                    // options.GetClaimsFromUserInfoEndpoint = true;
                     options.SaveTokens = true;
                     options.DisableTelemetry = true;
                     options.Events.OnUserInformationReceived = async ctx => {
