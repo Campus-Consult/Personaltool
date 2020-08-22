@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AuthUserService } from './services/authuser.service';
-import { PositionApiService } from "./services/positionapi.service";
+import { PositionApiService } from './services/positionapi.service';
 import { HomeComponent } from './home/home.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { PositionComponent } from './position/position.component';

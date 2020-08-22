@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
 export class PositionComponent implements OnInit {
 
   allPositions: Position[];
-  loading: boolean = true;
+  loading = true;
 
   constructor(private positionApiService: PositionApiService) {
-    
+
   }
 
   ngOnInit(): void {

@@ -22,7 +22,7 @@ export interface Position {
 export class PositionApiService {
     positionApiRoot: string;
     constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-        this.positionApiRoot = this.baseUrl + "api/Position";
+        this.positionApiRoot = this.baseUrl + 'api/Position';
     }
 
     public getAll(): Observable<Position[]> {
@@ -30,6 +30,6 @@ export class PositionApiService {
     }
 
     public get(id: number): Observable<Position> {
-        return this.http.get<Position>(this.positionApiRoot+"/"+id);
+        return this.http.get<Position>(this.positionApiRoot + '/' + id);
     }
 }
