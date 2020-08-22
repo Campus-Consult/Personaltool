@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/" >Personaltool</a>
+            <a class="navbar-brand" routerLink="/" >Personaltool</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,14 +25,13 @@
                 <ul class="navbar-nav flex-grow-1">
                     
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="/">Home</a>
+                        <a class="nav-link text-dark" routerLink="/">Home</a>
                     </li>
-                    <!-- TODO: only authenticated-->
                     <li *ngIf="authUser.permissions.includes('Admin')" class="nav-item">
                         <a class="nav-link text-dark" href="/Person">Person</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="/Home/Privacy">Privacy</a> <!-- TODO route through angular-->
+                        <a class="nav-link text-dark" routerLink="/Privacy">Privacy</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="/Home/LegalNotice">Impressum</a> <!-- TODO route through angular-->
@@ -51,6 +50,6 @@
 
 <footer class="border-top footer text-muted">
     <div class="container-fluid">
-        &copy; 2020 - Personaltool - <a href="Home/Privacy">Privacy</a> <!-- TODO route through angular-->
+        &copy; 2020 - Personaltool - <a routerLink="/Privacy">Privacy</a>
     </div>
 </footer>

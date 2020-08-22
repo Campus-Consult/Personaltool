@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export interface AuthData {
     authenticated: boolean;
     claims: {[key: string]: string};
-    permissions: string[],
+    permissions: string[];
 }
 
 export interface User {
@@ -32,15 +32,18 @@ export class AuthUserService {
         this.refreshAuthStatus();
     }
 
-    public refreshAuthStatus() {
-        return this.httpClient.get<AuthData>(this.baseUrl + 'Account/AuthStatus')
+    /**
+     * Refreshes the current auth status, returns immediately
+     * to be notified about the actual results, subscribe to the currentUser observable
+     */
+    public refreshAuthStatus(): void {
+        this.httpClient.get<AuthData>(this.baseUrl + 'Account/AuthStatus')
             .subscribe((data: AuthData) => {
                 if (data.authenticated) {
-                    let user: User = {
+                    const user: User = {
                         name: data.claims.name,
                         email: data.claims[MAIL_CLAIM],
                         claims: data.claims,
-                        // TODO issue #51
                         permissions: data.permissions,
                     };
                     this.currentUserSubject.next(user);

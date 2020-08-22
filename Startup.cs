@@ -191,7 +191,7 @@ namespace Personaltool
 
                 spa.Options.SourcePath = "ClientApp";
 
-                spa.Options.StartupTimeout = new TimeSpan(0, 0, 20);
+                spa.Options.StartupTimeout = new TimeSpan(0, 0, 30);
 
                
                 /*             Ausfuerung erzeugt Fehler / veraltet   
