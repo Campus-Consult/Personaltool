@@ -9,17 +9,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthUserService } from './services/authuser.service';
 import { HomeComponent } from './home/home.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { PersonalModule } from './personal/personal.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    PrivacyComponent
+    PrivacyComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    PersonalModule
   ],
   providers: [
     AuthUserService,
