@@ -31,5 +31,10 @@
                     <a title="Besetzt seit {{persPos.begin | date: 'dd.MM.yyyy'}}" routerLink="/Person/{{persPos.personID}}">{{persPos.firstName}} {{persPos.lastName}}</a>
                 </div>
             </td>
+            <td>
+                <a (click)="loadDetails(position.positionID)">Historie</a>
+            </td>
         </tr>
     </tbody>
+</table>
+

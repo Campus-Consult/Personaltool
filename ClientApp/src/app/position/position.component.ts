@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class PositionComponent implements OnInit {
 
+  detailPosition: Position | null = null;
   allPositions: Position[];
   loading = true;
 
@@ -21,6 +22,19 @@ export class PositionComponent implements OnInit {
       this.allPositions = pos;
       this.loading = false;
     });
+  }
+
+  public loadDetails(positionID: number): void {
+    this.positionApiService.get(positionID).subscribe(pos => {
+      this.detailPosition = pos;
+      console.log(pos);
+    }, error => {
+      alert("couldn't load position: "+error);
+    });
+  }
+
+  public closeDetails(): void {
+    this.detailPosition = null;
   }
 
 }

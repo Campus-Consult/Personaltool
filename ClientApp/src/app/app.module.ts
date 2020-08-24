@@ -22,7 +22,7 @@ import {MatIconModule} from '@angular/material/icon';
     AppComponent,
     HomeComponent,
     PrivacyComponent,
-    PositionComponent
+    PositionComponent,
   ],
   imports: [
     BrowserModule,
