@@ -1,56 +1,6 @@
 
 /* ==============Start Angular material Theme================ */
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$ClientApp-primary: mat-palette($md-ccblau);
-$ClientApp-accent: mat-palette($md-ccgruen, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$ClientApp-warn: mat-palette($md-warncolor);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$ClientApp-theme: mat-light-theme((
-  color: (
-    primary: $ClientApp-primary,
-    accent: $ClientApp-accent,
-    warn: $ClientApp-warn,
-  )
-));
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($ClientApp-theme);
-
-// Create your Sass color vars (will be available in all the project)
-$primary: mat-color($schwarzes-brett-primary);
-$accent: mat-color($schwarzes-brett-accent);
-$warn: mat-color($schwarzes-brett-warn);
-
-/* ==============Ende Angular Material Theme================ */
-
-/* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-
-
-
 /* ==============CC Colors for Angular Material Theme================ */
 
 /* For use in src/lib/core/theming/_palette.scss */
@@ -152,3 +102,54 @@ $md-warncolor: (
     A700: #ffffff
   )
 );
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ClientApp-primary: mat-palette($md-ccblau);
+$ClientApp-accent: mat-palette($md-ccgruen, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$ClientApp-warn: mat-palette($md-warncolor);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$ClientApp-theme: mat-light-theme((
+  color: (
+    primary: $ClientApp-primary,
+    accent: $ClientApp-accent,
+    warn: $ClientApp-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($ClientApp-theme);
+
+// Create your Sass color vars (will be available in all the project)
+$primary: mat-color($ClientApp-primary);
+$accent: mat-color($ClientApp-accent);
+$warn: mat-color($ClientApp-warn);
+
+/* ==============Ende Angular Material Theme================ */
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+
+
