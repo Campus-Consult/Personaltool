@@ -10,6 +10,10 @@ import { AuthUserService } from './services/authuser.service';
 import { HomeComponent } from './home/home.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { PersonalModule } from './personal/personal.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,12 @@ import { PersonalModule } from './personal/personal.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    PersonalModule
+    PersonalModule,
+    BrowserAnimationsModule,
+
+    // BEGIN MATERIAL
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [
     AuthUserService,
