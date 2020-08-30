@@ -1,5 +1,5 @@
 interface PersonBase {
-  getDiplayName(property: string): string;
+  getDisplayName(property: string): string;
 }
 
 export interface Person extends PersonBase {
