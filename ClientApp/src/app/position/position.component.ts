@@ -45,10 +45,10 @@ export class PositionComponent implements OnInit {
   public updateFiltering(): void {
     const searchTerm = this.searchTerm.toLowerCase();
     this.filteredPositions = this.allPositions.filter(p => {
-      if (p.isActive && this.activeFilter === 'deprecated') return false;
-      if (!p.isActive && this.activeFilter === 'active') return false;
+      if (p.isActive && this.activeFilter === 'deprecated') { return false; }
+      if (!p.isActive && this.activeFilter === 'active') { return false; }
       return p.name.toLowerCase().includes(searchTerm) || p.shortName.toLowerCase().includes(searchTerm);
-    })
+    });
   }
 
   public edit(position: Position): void {
@@ -132,11 +132,11 @@ export class PositionCreateDialogComponent {
     public dialogRef: MatDialogRef<PositionEditCialogComponent>) {
       this.savingBeforeClose = false;
       this.data = {
-        name: "",
-        shortName: "",
+        name: '',
+        shortName: '',
         isActive: true,
         positionID: -1, // invalid
-      }
+      };
     }
 
   onNoClick(): void {
