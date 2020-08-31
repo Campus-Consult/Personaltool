@@ -12,6 +12,11 @@ export class PositionComponent implements OnInit {
 
   detailPosition: Position | null = null;
   allPositions: Position[];
+
+  filteredPositions: Position[];
+  searchTerm: string;
+  activeFilter: 'all' | 'active' | 'deprecated';
+
   loading = true;
 
   constructor(private positionApiService: PositionApiService, public dialog: MatDialog) {
@@ -19,9 +24,12 @@ export class PositionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.activeFilter = 'all';
+    this.searchTerm = '';
     this.positionApiService.getAll().subscribe(pos => {
       this.allPositions = pos;
       this.loading = false;
+      this.updateFiltering();
     });
   }
 
@@ -32,6 +40,15 @@ export class PositionComponent implements OnInit {
     }, error => {
       alert('couldn\'t load position: ' + error);
     });
+  }
+
+  public updateFiltering(): void {
+    const searchTerm = this.searchTerm.toLowerCase();
+    this.filteredPositions = this.allPositions.filter(p => {
+      if (p.isActive && this.activeFilter === 'deprecated') return false;
+      if (!p.isActive && this.activeFilter === 'active') return false;
+      return p.name.toLowerCase().includes(searchTerm) || p.shortName.toLowerCase().includes(searchTerm);
+    })
   }
 
   public edit(position: Position): void {
@@ -63,7 +80,6 @@ export class PositionComponent implements OnInit {
   public closeDetails(): void {
     this.detailPosition = null;
   }
-
 }
 
 @Component({
@@ -87,7 +103,7 @@ export class PositionEditCialogComponent {
   }
 
   onSave(): void {
-    if (this.savingBeforeClose) return;
+    if (this.savingBeforeClose) { return; }
     console.log('saving...');
     this.savingBeforeClose = true;
     this.dialogRef.disableClose = true;
@@ -99,5 +115,45 @@ export class PositionEditCialogComponent {
       this.dialogRef.close();
     });
   }
+}
 
+@Component({
+  selector: 'app-position-create-dialog',
+  templateUrl: 'position-create-dialog.html',
+})
+export class PositionCreateDialogComponent {
+
+  // track state
+  public savingBeforeClose = false;
+  public data: PositionEdit;
+
+  constructor(
+    private positionApiService: PositionApiService,
+    public dialogRef: MatDialogRef<PositionEditCialogComponent>) {
+      this.savingBeforeClose = false;
+      this.data = {
+        name: "",
+        shortName: "",
+        isActive: true,
+        positionID: -1, // invalid
+      }
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSave(): void {
+    if (this.savingBeforeClose) { return; }
+    console.log('saving...');
+    this.savingBeforeClose = true;
+    this.dialogRef.disableClose = true;
+    this.positionApiService.create(this.data).subscribe(val => {
+      this.dialogRef.close(this.data);
+    }, err => {
+      // how do we want to handle errors? Notification top right?
+      console.log(err);
+      this.dialogRef.close();
+    });
+  }
 }

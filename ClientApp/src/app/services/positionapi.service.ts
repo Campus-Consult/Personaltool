@@ -43,4 +43,8 @@ export class PositionApiService {
     public update(position: PositionEdit): Observable<any> {
         return this.http.put(this.positionApiRoot + '/' + position.positionID, position);
     }
+
+    public create(position: PositionEdit): Observable<any> {
+        return this.http.post(this.positionApiRoot, position);
+    }
 }

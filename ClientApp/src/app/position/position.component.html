@@ -1,3 +1,11 @@
+<div>
+    <mat-form-field><input matInput [(ngModel)]="searchTerm" (keyup)="updateFiltering()" placeholder="Suche"></mat-form-field>
+    <mat-radio-group [(ngModel)]="activeFilter" (change)="updateFiltering()" aria-label="Select an option">
+        <mat-radio-button value="all">Alle</mat-radio-button>
+        <mat-radio-button value="active">Aktiv</mat-radio-button>
+        <mat-radio-button value="deprecated">Veraltet</mat-radio-button>
+    </mat-radio-group>      
+</div>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -16,7 +24,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let position of allPositions">
+        <tr *ngFor="let position of filteredPositions">
             <td>
                 {{position.name}}
             </td>
