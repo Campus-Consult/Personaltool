@@ -10,6 +10,13 @@ export interface PositionHolder {
     lastName: string;
 }
 
+export interface PositionEdit {
+    positionID: number;
+    name: string;
+    shortName: string;
+    isActive: boolean;
+}
+
 export interface Position {
     positionID: number;
     name: string;
@@ -31,5 +38,9 @@ export class PositionApiService {
 
     public get(id: number): Observable<Position> {
         return this.http.get<Position>(this.positionApiRoot + '/' + id);
+    }
+
+    public update(position: PositionEdit): Observable<any> {
+        return this.http.put(this.positionApiRoot + '/' + position.positionID, position);
     }
 }

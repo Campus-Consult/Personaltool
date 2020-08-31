@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { PositionApiService, Position } from '../services/positionapi.service';
+import { Component, OnInit, Inject } from '@angular/core';
+import { PositionApiService, Position, PositionEdit } from '../services/positionapi.service';
 import { Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-position',
@@ -13,7 +14,7 @@ export class PositionComponent implements OnInit {
   allPositions: Position[];
   loading = true;
 
-  constructor(private positionApiService: PositionApiService) {
+  constructor(private positionApiService: PositionApiService, public dialog: MatDialog) {
 
   }
 
@@ -29,12 +30,74 @@ export class PositionComponent implements OnInit {
       this.detailPosition = pos;
       console.log(pos);
     }, error => {
-      alert("couldn't load position: "+error);
+      alert('couldn\'t load position: ' + error);
+    });
+  }
+
+  public edit(position: Position): void {
+    const posEdit: PositionEdit = {
+      name: position.name,
+      shortName: position.shortName,
+      isActive: position.isActive,
+      positionID: position.positionID,
+    };
+    const dialogRef = this.dialog.open(PositionEditCialogComponent, {
+      width: '400px',
+      data: posEdit,
+    });
+
+    dialogRef.afterClosed().subscribe((result: undefined | PositionEdit) => {
+      if (!!result) {
+        const changedPosition = this.allPositions.find(pos => pos.positionID === result.positionID);
+        if (!changedPosition) {
+          console.log('Error, changed non existsing position??');
+        } else {
+          changedPosition.isActive = result.isActive;
+          changedPosition.name = result.name;
+          changedPosition.shortName = result.shortName;
+        }
+      }
     });
   }
 
   public closeDetails(): void {
     this.detailPosition = null;
+  }
+
+}
+
+@Component({
+  selector: 'app-position-edit-dialog',
+  templateUrl: 'position-edit-dialog.html',
+})
+export class PositionEditCialogComponent {
+
+  // track state
+  public savingBeforeClose = false;
+
+  constructor(
+    private positionApiService: PositionApiService,
+    public dialogRef: MatDialogRef<PositionEditCialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: PositionEdit) {
+      this.savingBeforeClose = false;
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onSave(): void {
+    if (this.savingBeforeClose) return;
+    console.log('saving...');
+    this.savingBeforeClose = true;
+    this.dialogRef.disableClose = true;
+    this.positionApiService.update(this.data).subscribe(val => {
+      this.dialogRef.close(this.data);
+    }, err => {
+      // how do we want to handle errors? Notification top right?
+      console.log(err);
+      this.dialogRef.close();
+    });
   }
 
 }
