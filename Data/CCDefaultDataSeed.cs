@@ -67,7 +67,7 @@ namespace Personaltool.Data {
                 });
                 await connection.Positions.AddAsync(new Position() {
                     IsActive = true,
-                    Name = "Vortsand Finanzen & Recht",
+                    Name = "Vorstand Finanzen & Recht",
                     ShortName = "V-F&R",
                 });
                 await connection.Positions.AddAsync(new Position() {
