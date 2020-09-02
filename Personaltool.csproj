@@ -56,6 +56,15 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\" />
+    <Folder Include="Domain\Interfaces\" />
+    <Folder Include="Domain\Exceptions\" />
+    <Folder Include="Domain\Enums\" />
+    <Folder Include="Infrastructure.Data\" />
+    <Folder Include="Infrastructure.IoC\" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
