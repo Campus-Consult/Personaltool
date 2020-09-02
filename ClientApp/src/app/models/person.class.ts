@@ -1,47 +1,33 @@
 export interface Person  {
-  PersonID: number;
+  personID: number;
 
-  /**  */
-  FirstName: string;
+  firstName: string;
 
-  /**  */
-  LastName: string;
+  lastName: string;
 
-  /**  */
-  Birthdate?: Date;
+  birthdate?: Date;
 
-  /**  */
-  Gender?: Gender;
+  gender?: Gender;
 
-  /**  */
-  EmailPrivate?: string;
+  emailPrivate?: string;
 
-  /**  */
-  EmailAssociaton?: string;
+  emailAssociaton?: string;
 
-  /**  */
-  MobilePrivate?: string;
+  mobilePrivate?: string;
 
-  /**  */
-  AdressStreet?: string;
+  adressStreet?: string;
 
-  /**  */
-  AdressNr?: string;
+  adressNr?: string;
 
-  /**  */
-  AdressZIP?: string;
+  adressZIP?: string;
 
-  /**  */
-  AdressCity?: string;
+  adressCity?: string;
 
-  /**  */
-  PersonsMemberStatus: PersonsMemberStatus[];
+  personsMemberStatus: PersonsMemberStatus[];
 
-  /**  */
-  PersonsCareerLevels: PersonsCareerLevel[];
+  personsCareerLevels: PersonsCareerLevel[];
 
-  /**  */
-  PersonsPositions: PersonsPosition[];
+  personsPositions: PersonsPosition[];
 }
 
 export enum Gender {
@@ -53,82 +39,73 @@ export enum Gender {
 }
 
 export interface PersonsMemberStatus  {
-  PersonsMemberStatusID: number;
+  personsMemberStatusID: number;
 
-  PersonID: number;
+  personID: number;
 
-  MemberStatusID: number;
+  memberStatusID: number;
 
-  /**  */
-  Begin: Date;
+  begin: Date;
 
-  /**  */
-  End?: Date;
+  end?: Date;
 
-  Person?: Person;
+  person?: Person;
 
-  MemberStatus: MemberStatus;
+  memberStatus?: MemberStatus;
 }
 
 export interface MemberStatus {
-  MemberStatusID: number;
+  memberStatusID: number;
 
-  /**  */
-  Name: string;
+  name: string;
 
-  PersonsMemberStatus?: PersonsMemberStatus[];
+  personsMemberStatus?: PersonsMemberStatus[];
 }
 
 interface PersonsCareerLevel  {
-  PersonsCareerLevelID: number;
+  personsCareerLevelID: number;
 
-  PersonID: number;
+  personID: number;
 
-  CareerLevelID: number;
+  careerLevelID: number;
 
-  /**  */
-  Begin: Date;
-
-  /**  optional*/
-  End?: Date;
+  begin: Date;
 
   /**  optional*/
-  Person?: Person;
+  end?: Date;
 
-  /**  */
-  CareerLevel: CareerLevel;
+  /**  optional*/
+  person?: Person;
+
+  careerLevel?: CareerLevel;
 }
 
 export interface CareerLevel  {
-  CareerLevelID: number;
+  careerLevelID: number;
 
-  /**  */
-  Name: string;
+  name: string;
 
-  /**  */
-  ShortName: string;
+  shortName: string;
 
-  /**  */
-  IsActive: boolean;
+  isActive: boolean;
 
-  PersonsCareerLevels: PersonsCareerLevel[];
+  personsCareerLevels: PersonsCareerLevel[];
 }
 
 export interface PersonsPosition  {
-  PersonPositionID: number;
+  personPositionID: number;
 
-  PersonID: number;
+  personID: number;
 
-  PositionID: number;
+  positionID: number;
 
-  /**  */
-  Begin: Date;
-
-  /**  optional */
-  End?: Date;
+  begin: Date;
 
   /**  optional */
-  Person?: Person;
+  end?: Date;
 
-  Position: Position;
+  /**  optional */
+  person?: Person;
+
+  position?: Position;
 }
