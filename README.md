@@ -9,8 +9,7 @@ Das Projekt basiert auf dem [ASP.NET Core 3.1 MVC](https://docs.microsoft.com/de
 1. Repository klonen oder herunterladen.
 2. Benötigte Benutzergeheimnisse anlegen. ([Siehe hier](###Benutzergeheimnisse))
 3. Datenbank migrieren. ([Siehe hier](###Datenbank))
-4. libman einrichten ([Siehe hier](###Libman))
-5. App starten.
+4. ASP.NET Core App und Angular App starten. ([Siehe hier](###Starten))
 
 ### Benutzergeheimnisse:
 Diese App verwendet einige Benutzergeheimnisse, die vor dem Start der App konfiguriert werden müssen. Diese können mit dem [hier](https://docs.microsoft.com/de-de/aspnet/core/security/app-secrets?view=aspnetcore-3.1) erklärten Secret-Manager-Tool eingerichtet werden.
@@ -56,17 +55,24 @@ Weitere Informationen bezüglich Migrationen findet sich in der offiziellen [Dok
         "PersonMemberStatus": 3
     }
 
-### Libman
-Um javascript/CSS Abhängigkeiten zu verwalten, wird libman benötigt.  
-Visual Studio: Rechtsklick auf die `libman.json` Datei, dann `Restore Client-Side Libraries` auswählen  
-Sonstige: Zuerst muss libman installiert werden:
+## Starten
+### ASP.NET Core backend starten
+Im Terminal muss zum Starten
 
-    dotnet tool install -g Microsoft.Web.LibraryManager.Cli
+    dotnet run
 
-Dann können die Abhängigkeiten heruntergeladen werden:
+ausgeführt werden
+### Angular App
+In einem seperaten Terminal, welches mit + hinzugefügt werden kann, muss zuerst mit
 
-    libman restore
+    cd ClientApp
 
+in den angular Ordner gewechselt werden und dann mit
+
+    npm start
+
+der angular dev server gestartet werden.  
+Damit können beide Komponenten seperat gestartet und gestoppt werden.
 
 ## Deployment
 This app is deployed on an Ubuntu 18.04 machine as a service behind an apache Reverse Proxy which handles https, which is handled via LetsEncrypt. The service file is located at `Deploy/dotnet-personaltool.service`, the apache config files are `personaltool.conf` (pretty much just a redirect to the https version) and `personaltool-le-ssl.conf` (https version with letsencrypt and proxy headers). The `appsettings.Release.json` has all sensitive information removed, but it changes the internal port to 5002 because 5000 is already used on the server.
