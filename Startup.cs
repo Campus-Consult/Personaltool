@@ -30,6 +30,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Personaltool.Data;
 using Personaltool.Helpers;
+using Personaltool.Infrastructure.IoC;
 using Personaltool.Models;
 using Personaltool.Services;
 
@@ -146,6 +147,8 @@ namespace Personaltool
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -209,6 +212,11 @@ namespace Personaltool
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            DependencyContainer.RegisterServices(services);
         }
     }
 }
