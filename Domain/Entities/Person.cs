@@ -67,16 +67,16 @@ namespace Personaltool.Domain.Entities
         public ICollection<PersonsPosition> PersonsPositions { get; set; }
 
     }
-}
 
-public enum Gender
-{
-    [Display(Name = "männlich")]
-    MALE,
+    public enum Gender
+    {
+        [Display(Name = "männlich")]
+        MALE,
     
-    [Display(Name = "weiblich")]
-    FEMALE,
+        [Display(Name = "weiblich")]
+        FEMALE,
 
-    [Display(Name = "divers")]
-    DIVERSE
+        [Display(Name = "divers")]
+        DIVERSE
+    }
 }
