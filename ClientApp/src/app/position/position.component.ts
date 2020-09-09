@@ -1,7 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { PositionApiService, Position, PositionEdit } from '../services/positionapi.service';
+import { PositionApiService, Position, PositionEdit, PersonAssignment } from '../services/positionapi.service';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { startWith, switchMap, map } from 'rxjs/operators';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-position',
@@ -10,7 +14,6 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dial
 })
 export class PositionComponent implements OnInit {
 
-  detailPosition: Position | null = null;
   allPositions: Position[];
 
   filteredPositions: Position[];
@@ -33,15 +36,6 @@ export class PositionComponent implements OnInit {
     });
   }
 
-  public loadDetails(positionID: number): void {
-    this.positionApiService.get(positionID).subscribe(pos => {
-      this.detailPosition = pos;
-      console.log(pos);
-    }, error => {
-      alert('couldn\'t load position: ' + error);
-    });
-  }
-
   public updateFiltering(): void {
     const searchTerm = this.searchTerm.toLowerCase();
     this.filteredPositions = this.allPositions.filter(p => {
@@ -55,7 +49,6 @@ export class PositionComponent implements OnInit {
     const posEdit: PositionEdit = {
       name: position.name,
       shortName: position.shortName,
-      isActive: position.isActive,
       positionID: position.positionID,
     };
     const dialogRef = this.dialog.open(PositionEditCialogComponent, {
@@ -69,7 +62,6 @@ export class PositionComponent implements OnInit {
         if (!changedPosition) {
           console.log('Error, changed non existsing position??');
         } else {
-          changedPosition.isActive = result.isActive;
           changedPosition.name = result.name;
           changedPosition.shortName = result.shortName;
         }
@@ -77,8 +69,10 @@ export class PositionComponent implements OnInit {
     });
   }
 
-  public closeDetails(): void {
-    this.detailPosition = null;
+  public assign(position: Position): void {
+    this.dialog.open(PositionAssignDialogComponent, {
+      data: position,
+    });
   }
 }
 
@@ -134,8 +128,7 @@ export class PositionCreateDialogComponent {
       this.data = {
         name: '',
         shortName: '',
-        isActive: true,
-        positionID: -1, // invalid
+        positionID: -1, // ignored by api anyways
       };
     }
 
@@ -150,6 +143,90 @@ export class PositionCreateDialogComponent {
     this.dialogRef.disableClose = true;
     this.positionApiService.create(this.data).subscribe(val => {
       this.dialogRef.close(this.data);
+    }, err => {
+      // how do we want to handle errors? Notification top right?
+      console.log(err);
+      this.dialogRef.close();
+    });
+  }
+}
+
+@Component({
+  selector: 'app-position-assign-dialog',
+  templateUrl: 'position-assign-dialog.html',
+})
+export class PositionAssignDialogComponent implements OnInit {
+
+  // track state
+  public savingBeforeClose = false;
+  public assignSuggestions: Observable<PersonAssignment[]>;
+  public filteredSuggestions: Observable<PersonAssignment[]>;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private positionApiService: PositionApiService,
+    public dialogRef: MatDialogRef<PositionEditCialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public position: Position) {
+      this.savingBeforeClose = false;
+      this.assignSuggestions = this.positionApiService.getAssignmentsSuggestion();
+  }
+
+  ngOnInit(): void {
+    this.filteredSuggestions = this.assignee.valueChanges
+      .pipe(
+        startWith(''),
+        switchMap(value => this.filterAssignees(value))
+      );
+    this.assignDate.setValue(moment());
+  }
+
+  private filterAssignees(value: string | PersonAssignment) {
+    let filterValue = '';
+    if (value) {
+      filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase();
+      return this.assignSuggestions.pipe(
+        map(books => books.filter(book => book.name.toLowerCase().includes(filterValue)))
+      );
+    } else {
+      return this.assignSuggestions;
+    }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  displayFn(person?: PersonAssignment): string | undefined {
+    return person ? person.name : undefined;
+  }
+
+  assignForm = this.formBuilder.group({
+    assignee: [null, Validators.required, (ac: AbstractControl) => of((typeof ac.value) == 'string' ? {shouldselect: true} : null)],
+    assignDate: [null, Validators.required],
+  });
+  
+  get assignee() {
+    return this.assignForm.get('assignee');
+  }
+
+  get assignDate() {
+    return this.assignForm.get('assignDate');
+  }
+
+  onSubmit(): void {
+    if (this.savingBeforeClose) { return; }
+    // triggers errors
+    this.assignForm.markAllAsTouched();
+    if (this.assignForm.invalid) { return; }
+    console.log('saving...');
+    this.savingBeforeClose = true;
+    this.dialogRef.disableClose = true;
+
+    const personsToAssign: number[] = [];
+    const personID = this.assignee.value.personID;
+    personsToAssign.push(personID);
+    this.positionApiService.assign(this.position.positionID, this.assignDate.value.toJSON(), personsToAssign).subscribe(val => {
+      this.dialogRef.close();
     }, err => {
       // how do we want to handle errors? Notification top right?
       console.log(err);
