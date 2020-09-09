@@ -1,1 +1,19 @@
-<p>personal works!</p>
+<h2>Personal List</h2>
+<mat-form-field class="search-field">
+  <mat-label><mat-icon>search</mat-icon>Search</mat-label>
+  <input matInput type="search" [(ngModel)]="searchValue" />
+  <button
+    mat-button
+    *ngIf="searchValue"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="searchValue = ''"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+<div class="flex-container">
+  <app-person-list class="table-part" [personalData]="personalTableData"></app-person-list>
+  <app-person-details class="part-view" [personDetails]="selectedPerson"></app-person-details>
+</div>
