@@ -1,1 +1,117 @@
-<p>person-details works!</p>
+<ng-container *ngIf="personDetails; else elseTemplate">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Person Details</mat-card-title>
+      <mat-card-subtitle>{{ displayedName }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <table class="table table-borderless table-sm">
+        <tbody>
+          <tr>
+            <td class="font-weight-bold" width="200">Vorname</td>
+            <td colspan="2">
+              {{ personDetails.firstName }}
+            </td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold" width="200">Nachname</td>
+            <td colspan="2">
+              {{ personDetails.lastName }}
+            </td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold" width="200">Geburtstag</td>
+            <td colspan="2">
+              {{ personDetails.birthdate.toLocaleDateString() }}
+            </td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold" width="200">Geschlecht</td>
+            <td colspan="2">
+              {{ personDetails.gender }}
+            </td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold" width="200">
+              E-Mail (Campus Consult)
+            </td>
+            <td colspan="2">
+              {{ personDetails.emailAssociaton }}
+            </td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold" width="200">E-Mail (privat)</td>
+            <td colspan="2">
+              {{ personDetails.emailPrivate }}
+            </td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold" width="200">Straße, Hausnummer</td>
+            <td colspan="2">
+              {{ personDetails.adressStreet + "" + personDetails.adressNr }}
+            </td>
+          </tr>
+          <tr>
+            <td class="font-weight-bold" width="200">PLZ, Stadt</td>
+            <td colspan="2">
+              {{ personDetails.adressZIP + "" + personDetails.adressCity }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Mitglieds-Status </mat-panel-title>
+            <mat-panel-description>
+              {{ "Current: " + currentMemberState.name }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <table
+            mat-table
+            [dataSource]="personDetails.personsPositions"
+          ></table>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Karriere-Level </mat-panel-title>
+            <mat-panel-description>
+              {{ "Current: " + currentCareerLevel.name }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <table
+            mat-table
+            [dataSource]="personDetails.personsPositions"
+          ></table>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Karriere-Level </mat-panel-title>
+            <mat-panel-description>
+              {{ "Current: " + currentPositions.name }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <table
+            mat-table
+            [dataSource]="personDetails.personsPositions"
+          ></table>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Ok</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>
+
+<ng-template #elseTemplate>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Person Details</mat-card-title>
+      <mat-card-subtitle>No Person Selected</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      Click on person in table to show Details.
+    </mat-card-content>
+  </mat-card>
+</ng-template>
