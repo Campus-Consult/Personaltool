@@ -11,7 +11,7 @@ export class PersonalComponent implements OnInit {
 
   public searchValue= '';
 
-  public selectedPerson: Person;
+  public selectedPerson: PersonTableData;
 
   constructor() {}
 
@@ -35,6 +35,11 @@ export class PersonalComponent implements OnInit {
   }
 
   createPerson() {}
+
+  changeDisplayedPerson(persId: number){
+    // TODO: evelaute is using index better?
+    this.selectedPerson = this.personalTableData.find((val)=>val.personID === persId);
+  }
 
   getPersonDetails(personID: number): Person{
     const personList = new Array<Person>();

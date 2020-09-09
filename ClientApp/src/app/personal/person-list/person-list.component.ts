@@ -13,10 +13,10 @@ export class PersonListComponent implements OnInit {
   personalData: PersonTableData[];
 
   @Input()
-  displayedColumns: string[];
+  displayedColumns?: string[];
 
   @Output()
-  itemSelectedEvent = new EventEmitter<number>();
+  onDetail = new EventEmitter<number>();
 
   //dataSource = new MatTableDataSource<PersonTableData>(this.personalData);
 
@@ -44,9 +44,8 @@ export class PersonListComponent implements OnInit {
 
   /** =============Person Action Methods ============== */
 
-  edit(persID: number) {}
+  details(persID: number) {
+    this.onDetail.emit(persID);
+  }
 
-  details(persID: number) {}
-
-  delete(persID: number) {}
 }

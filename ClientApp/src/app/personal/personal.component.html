@@ -14,6 +14,6 @@
   </button>
 </mat-form-field>
 <div class="flex-container">
-  <app-person-list class="table-part" [personalData]="personalTableData"></app-person-list>
-  <app-person-details class="part-view" [personDetails]="selectedPerson"></app-person-details>
+  <app-person-list class="table-part" [personalData]="personalTableData" (onDetail)="changeDisplayedPerson($event)"></app-person-list>
+  <app-person-details class="part-view" [personTabledDta]="selectedPerson"></app-person-details>
 </div>

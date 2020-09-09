@@ -1,4 +1,4 @@
-<ng-container *ngIf="personDetails; else elseTemplate">
+<ng-container *ngIf="personTabledDta; else elseTemplate">
   <mat-card>
     <mat-card-header>
       <mat-card-title>Person Details</mat-card-title>
@@ -10,13 +10,13 @@
           <tr>
             <td class="font-weight-bold" width="200">Vorname</td>
             <td colspan="2">
-              {{ personDetails.firstName }}
+              {{ personTabledDta.firstName }}
             </td>
           </tr>
           <tr>
             <td class="font-weight-bold" width="200">Nachname</td>
             <td colspan="2">
-              {{ personDetails.lastName }}
+              {{ personTabledDta.lastName }}
             </td>
           </tr>
           <tr>
@@ -64,7 +64,7 @@
           <mat-expansion-panel-header>
             <mat-panel-title> Mitglieds-Status </mat-panel-title>
             <mat-panel-description>
-              {{ "Current: " + currentMemberState.name }}
+              {{ "Current: " + personTabledDta.personsMemberStatus }}
             </mat-panel-description>
           </mat-expansion-panel-header>
           <table
@@ -76,7 +76,7 @@
           <mat-expansion-panel-header>
             <mat-panel-title> Karriere-Level </mat-panel-title>
             <mat-panel-description>
-              {{ "Current: " + currentCareerLevel.name }}
+              {{ "Current: " + personTabledDta.personsCareerLevel }}
             </mat-panel-description>
           </mat-expansion-panel-header>
           <table
@@ -86,9 +86,9 @@
         </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title> Karriere-Level </mat-panel-title>
+            <mat-panel-title> Posten </mat-panel-title>
             <mat-panel-description>
-              {{ "Current: " + currentPositions.name }}
+              {{ "Current: " + personTabledDta.personsPosition }}
             </mat-panel-description>
           </mat-expansion-panel-header>
           <table
