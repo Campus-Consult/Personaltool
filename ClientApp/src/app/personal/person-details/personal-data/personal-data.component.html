@@ -22,7 +22,7 @@
       <td class="font-weight-bold" width="200">Geburtstag</td>
       <td colspan="2">
         <app-skeleton-loader
-          [value]="personDetails.birthdate.toLocaleDateString()"
+          [value]="personDetails.birthdate?personDetails.birthdate.toLocaleDateString(): personDetails.birthdate"
           type="LINE"
         ></app-skeleton-loader>
       </td>
@@ -58,7 +58,7 @@
       <td class="font-weight-bold" width="200">Straße, Hausnummer</td>
       <td colspan="2">
         <app-skeleton-loader
-          [value]="personDetails.adressStreet + '' + personDetails.adressNr"
+          [value]="strasseHausNr"
           type="LINE"
         ></app-skeleton-loader>
       </td>
@@ -67,7 +67,7 @@
       <td class="font-weight-bold" width="200">PLZ, Stadt</td>
       <td colspan="2">
         <app-skeleton-loader
-          [value]="personDetails.adressZIP + '' + personDetails.adressCity"
+          [value]="stadtPLZ"
           type="LINE"
         ></app-skeleton-loader>
       </td>

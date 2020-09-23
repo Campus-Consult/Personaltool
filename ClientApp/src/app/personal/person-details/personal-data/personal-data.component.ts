@@ -1,3 +1,4 @@
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import {
   Component,
   OnInit,
@@ -16,13 +17,24 @@ export class PersonalDataComponent implements OnInit {
   @Input()
   personDetails: Person;
 
+  strasseHausNr: string;
+
+  stadtPLZ: string;
+
   constructor() {}
 
   ngOnInit(): void {
     if (!this.personDetails) {
+      console.log('Werde ausgeführt');
+      
       this.personDetails = this.getEmptypersonDetails();
     }
+    console.log(this.personDetails);
+    
+    this.strasseHausNr = this.getStrasseHausnr();
+    this.stadtPLZ = this.getPLZStadt();
   }
+
   getEmptypersonDetails(): Person {
     return {
       firstName: undefined,
@@ -32,5 +44,27 @@ export class PersonalDataComponent implements OnInit {
       personsMemberStatus: [],
       personsPositions: [],
     };
+  }
+
+  private getStrasseHausnr():string {
+    let value: string;
+    if(this.personDetails.adressStreet && this.personDetails.adressNr)
+      value = this.personDetails.adressStreet + '' + this.personDetails.adressNr;
+    else if(this.personDetails.adressStreet)
+      value = this.personDetails.adressNr + ' fehlt';
+    else if(this.personDetails.adressNr)
+      value = 'fehlt ' + this.personDetails.adressStreet;
+    return value;
+  }
+
+  private getPLZStadt():string {
+    let value: string;
+    if(this.personDetails.adressZIP && this.personDetails.adressCity)
+      value = this.personDetails.adressZIP + '' + this.personDetails.adressCity;
+    else if(this.personDetails.adressZIP)
+      value = this.personDetails.adressZIP + ' fehlt';
+    else if(this.personDetails.adressCity)
+      value = 'fehlt ' + this.personDetails.adressCity;
+    return value;
   }
 }
