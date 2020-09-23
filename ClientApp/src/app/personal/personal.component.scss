@@ -8,6 +8,7 @@ $table-width: 60%;
 .detail-view {
     width: 100% - $table-width;
     justify-self: flex-end;
+    margin-left: 15px; // padding from div in highest hierachie 
 }
 
 .flex-container {
