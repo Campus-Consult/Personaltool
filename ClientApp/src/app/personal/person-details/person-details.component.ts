@@ -34,7 +34,7 @@ export class PersonDetailsComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit(): void {
-    this.displayedName = this.getFullName();
+    this.displayedName = this.personTabledDTO?this.getFullName(): 'No Person Selected';
 
     // TODO AAM: Propertys could undefinded and need get from Backend
     this.currentMemberState = this.personDetails.personsMemberStatus.find(

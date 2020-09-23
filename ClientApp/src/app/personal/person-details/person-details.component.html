@@ -1,11 +1,9 @@
-<ng-container *ngIf="personTabledDTO; else elseTemplate">
   <mat-card class="detail-card">
     <mat-card-header>
       <mat-card-title>Person Details</mat-card-title>
       <mat-card-subtitle>{{ displayedName }}</mat-card-subtitle>
-      <img mat-card-sm-image />
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content *ngIf="personTabledDTO; else elseTemplate">
       <app-personal-data [personDetails]="personDetails"></app-personal-data>
       <mat-accordion>
         <mat-expansion-panel>
@@ -15,10 +13,10 @@
               {{ "Current: " + personTabledDTO.personsMemberStatus }}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <table
+<!--           <table
             mat-table
             [dataSource]="personDetails.personsPositions"
-          ></table>
+          ></table> -->
         </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -27,10 +25,10 @@
               {{ "Current: " + personTabledDTO.personsCareerLevel }}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <table
+<!--           <table
             mat-table
             [dataSource]="personDetails.personsPositions"
-          ></table>
+          ></table> -->
         </mat-expansion-panel>
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -39,27 +37,22 @@
               {{ "Current: " + personTabledDTO.personsPosition }}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <table
+  <!--         <table
             mat-table
             [dataSource]="personDetails.personsPositions"
-          ></table>
+          ></table> -->
         </mat-expansion-panel>
       </mat-accordion>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button col>Ok</button>
-    </mat-card-actions>
+  <ng-template #elseTemplate>
+      <mat-card-content>
+        Click on person in table to show Details.
+      </mat-card-content>
+  </ng-template>
+  <mat-card-actions>
+    <button mat-button col>Ok</button>
+  </mat-card-actions>
   </mat-card>
-</ng-container>
 
-<ng-template #elseTemplate>
-  <mat-card class="detail-card">
-    <mat-card-header>
-      <mat-card-title>Person Details</mat-card-title>
-      <mat-card-subtitle>No Person Selected</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      Click on person in table to show Details.
-    </mat-card-content>
-  </mat-card>
-</ng-template>
+
+
