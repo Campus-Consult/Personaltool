@@ -20,7 +20,7 @@ import { PersonTableData } from '../personal.component';
 })
 export class PersonDetailsComponent implements OnInit, OnChanges {
   @Input()
-  personTabledDta: PersonTableData;
+  personTabledDTO: PersonTableData;
 
   personDetails: Person;
 
@@ -49,12 +49,19 @@ export class PersonDetailsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    for (const key in changes) {
+    for (const propName in changes) {
+      const chng = changes[propName];
+      const prev = chng.previousValue;
+      console.log(propName);
+      
+      if (propName==='personTabledDTO' && chng.currentValue) {
+        this.personTabledDTO = chng.currentValue as PersonTableData;
+      }
     }
-    console.log(this.personTabledDta);
-    
-    this.setPersonData(this.personTabledDta.personID);
-    this.displayedName = this.getFullName();
+    if (this.personTabledDTO) {
+      this.setPersonData(this.personTabledDTO.personID);
+      this.displayedName = this.getFullName();
+    }
   }
 
   getPersondata(personId: number): string {
@@ -65,6 +72,6 @@ export class PersonDetailsComponent implements OnInit, OnChanges {
   setPersonData(personId: number) {}
 
   getFullName(): string {
-    return this.personTabledDta.firstName + ' ' + this.personTabledDta.lastName;
+    return this.personTabledDTO.firstName + ' ' + this.personTabledDTO.lastName;
   }
 }

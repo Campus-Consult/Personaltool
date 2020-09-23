@@ -8,7 +8,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 export class SkeletonLoaderComponent implements OnInit, OnChanges {
 
   @Input()
-  type:SkeletonTypes
+  type:SkeletonTypes;
 
   @Input()
   value: any;

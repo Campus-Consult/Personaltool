@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ComponentsModule } from '../components/components.module';
+import { PersonalDataComponent } from './person-details/personal-data/personal-data.component';
 
 @NgModule({
   declarations: [
@@ -21,10 +23,12 @@ import {MatExpansionModule} from '@angular/material/expansion';
     PersonEditComponent,
     PersonDetailsComponent,
     PersonListComponent,
+    PersonalDataComponent
   ],
   exports: [PersonalComponent],
   imports: [
     CommonModule,
+    ComponentsModule,
     FormsModule,
     MatButtonModule,
     MatIconModule,
