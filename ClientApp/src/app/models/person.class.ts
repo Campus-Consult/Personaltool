@@ -62,7 +62,7 @@ export interface MemberStatus {
   personsMemberStatus?: PersonsMemberStatus[];
 }
 
-interface PersonsCareerLevel  {
+export interface PersonsCareerLevel  {
   personsCareerLevelID: number;
 
   personID: number;
@@ -108,4 +108,9 @@ export interface PersonsPosition  {
   person?: Person;
 
   position?: Position;
+}
+
+export interface Position {
+  positionId: number;
+  name: string
 }
