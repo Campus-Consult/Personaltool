@@ -12,7 +12,7 @@ import { AuthUserService } from './services/authuser.service';
 import { PositionApiService } from './services/positionapi.service';
 import { HomeComponent } from './home/home.component';
 import { PrivacyComponent } from './privacy/privacy.component';
-import { PositionComponent, PositionEditCialogComponent, PositionCreateDialogComponent, PositionAssignDialogComponent } from './position/position.component';
+import { PositionComponent, PositionEditCialogComponent, PositionCreateDialogComponent, PositionAssignDialogComponent, PositionDismissDialogComponent } from './position/position.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -29,6 +29,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SearchSelectComponent } from './common/search-select/search-select.component';
 
 
 registerLocaleData(localeDe);
@@ -42,6 +43,8 @@ registerLocaleData(localeDe);
     PositionEditCialogComponent, // TODO: I'd rather not have all dialogues here, but angular is dumb and this works
     PositionCreateDialogComponent,
     PositionAssignDialogComponent,
+    PositionDismissDialogComponent,
+    SearchSelectComponent,
   ],
   imports: [
     BrowserModule,

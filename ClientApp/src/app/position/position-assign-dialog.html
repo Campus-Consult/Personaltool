@@ -1,30 +1,18 @@
-<h1 mat-dialog-title>Position {{position.name}} Besetzen</h1>
+<h1 mat-dialog-title>Position Besetzen</h1>
 <div mat-dialog-content>
+  <div>
+      <span>Posten {{position.name}} besetzen</span>
+  </div>
     <!-- <mat-form-field><input matInput [(ngModel)]="data.name" placeholder="Name"></mat-form-field>
     <mat-form-field><input matInput [(ngModel)]="data.shortName" placeholder="Kurzbezeichnung"></mat-form-field> -->
     <form [formGroup]="assignForm" > <!--(ngSubmit)="onFormSubmit()"-->
-        <div>
-            <mat-form-field>
-              <input type="text" placeholder="Neue Besetzung" matInput formControlName="assignee" [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-                <mat-option *ngFor="let assignee of filteredSuggestions | async" [value]="assignee">
-                  {{assignee.name}}
-                </mat-option>
-              </mat-autocomplete>
-              <mat-error *ngIf="assignee.hasError('required')">
-                Person ist Pflichtfeld
-              </mat-error>
-              <mat-error *ngIf="assignee.hasError('shouldselect')">
-                Bitte aus Auswahl auswählen
-              </mat-error>
-            </mat-form-field>
-        </div>
+        <app-search-select [assignSuggestions]="assignSuggestions" formControlName="assignPerson"></app-search-select>
         <div>
             <mat-form-field>
                 <input matInput placeholder="Datum" formControlName="assignDate" [matDatepicker]="picker">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-                <mat-error *ngIf="assignee.hasError('required')">
+                <mat-error *ngIf="assignDate.hasError('required')">
                   Datum ist Pflichtfeld
                 </mat-error>
             </mat-form-field>

@@ -27,10 +27,10 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" routerLink="/">Home</a>
                     </li>
-                    <li *ngIf="authUser.permissions.includes('Admin')" class="nav-item">
+                    <li *ngIf="authUser?.permissions.includes('Admin')" class="nav-item">
                         <a class="nav-link text-dark" routerLink="/Person">Person</a>
                     </li>
-                    <li *ngIf="authUser.permissions.includes('Admin')" class="nav-item">
+                    <li *ngIf="authUser?.permissions.includes('Admin')" class="nav-item">
                         <a class="nav-link text-dark" routerLink="/Position">Posten</a>
                     </li>
                     <li class="nav-item">

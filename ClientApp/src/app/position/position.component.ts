@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { PositionApiService, Position, PositionEdit, PersonAssignment } from '../services/positionapi.service';
+import { PositionApiService, Position, PositionEdit, PersonAssignment, PositionHolder } from '../services/positionapi.service';
 import { Router } from '@angular/router';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { startWith, switchMap, map } from 'rxjs/operators';
 import * as moment from "moment";
+import { AssignmentOption } from '../common/search-select/search-select.component';
 
 @Component({
   selector: 'app-position',
@@ -72,6 +73,15 @@ export class PositionComponent implements OnInit {
   public assign(position: Position): void {
     this.dialog.open(PositionAssignDialogComponent, {
       data: position,
+    });
+  }
+
+  public dismiss(position: Position, person: PositionHolder): void {
+    this.dialog.open(PositionDismissDialogComponent, {
+      data: {
+        position,
+        person,
+      },
     });
   }
 }
@@ -159,8 +169,7 @@ export class PositionAssignDialogComponent implements OnInit {
 
   // track state
   public savingBeforeClose = false;
-  public assignSuggestions: Observable<PersonAssignment[]>;
-  public filteredSuggestions: Observable<PersonAssignment[]>;
+  public assignSuggestions: AssignmentOption[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -168,45 +177,31 @@ export class PositionAssignDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<PositionEditCialogComponent>,
     @Inject(MAT_DIALOG_DATA) public position: Position) {
       this.savingBeforeClose = false;
-      this.assignSuggestions = this.positionApiService.getAssignmentsSuggestion();
   }
 
   ngOnInit(): void {
-    this.filteredSuggestions = this.assignee.valueChanges
-      .pipe(
-        startWith(''),
-        switchMap(value => this.filterAssignees(value))
-      );
+    this.positionApiService.getAssignmentsSuggestion().subscribe(suggestions => {
+      this.assignSuggestions = suggestions.map(s => {
+        return {name: s.name, id: s.personID};
+      });
+    });
     this.assignDate.setValue(moment());
-  }
-
-  private filterAssignees(value: string | PersonAssignment) {
-    let filterValue = '';
-    if (value) {
-      filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase();
-      return this.assignSuggestions.pipe(
-        map(books => books.filter(book => book.name.toLowerCase().includes(filterValue)))
-      );
-    } else {
-      return this.assignSuggestions;
-    }
+    this.assignForm.valueChanges.subscribe(v => {
+      console.log(v);
+    })
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  displayFn(person?: PersonAssignment): string | undefined {
-    return person ? person.name : undefined;
-  }
-
   assignForm = this.formBuilder.group({
-    assignee: [null, Validators.required, (ac: AbstractControl) => of((typeof ac.value) == 'string' ? {shouldselect: true} : null)],
+    assignPerson: [true, Validators.required],
     assignDate: [null, Validators.required],
   });
-  
-  get assignee() {
-    return this.assignForm.get('assignee');
+
+  get assignPerson() {
+    return this.assignForm.get('assignPerson');
   }
 
   get assignDate() {
@@ -223,9 +218,64 @@ export class PositionAssignDialogComponent implements OnInit {
     this.dialogRef.disableClose = true;
 
     const personsToAssign: number[] = [];
-    const personID = this.assignee.value.personID;
+    const personID = this.assignPerson.value.id;
     personsToAssign.push(personID);
     this.positionApiService.assign(this.position.positionID, this.assignDate.value.toJSON(), personsToAssign).subscribe(val => {
+      this.dialogRef.close();
+    }, err => {
+      // how do we want to handle errors? Notification top right?
+      console.log(err);
+      this.dialogRef.close();
+    });
+  }
+}
+
+@Component({
+  selector: 'app-position-dismiss-dialog',
+  templateUrl: 'position-dismiss-dialog.html',
+})
+export class PositionDismissDialogComponent implements OnInit{
+  // track state
+  public savingBeforeClose = false;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private positionApiService: PositionApiService,
+    public dialogRef: MatDialogRef<PositionDismissDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: {position: Position, person: PositionHolder}) {
+      this.savingBeforeClose = false;
+  }
+
+  ngOnInit(): void {
+    this.date.setValue(moment());
+    this.date.valueChanges.subscribe(v => {
+      console.log(v);
+    });
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  dismissForm = this.formBuilder.group({
+    date: [null, Validators.required],
+  });
+
+  get date() {
+    return this.dismissForm.get('date');
+  }
+
+  onSubmit(): void {
+    if (this.savingBeforeClose) { return; }
+    // triggers errors
+    this.dismissForm.markAllAsTouched();
+    if (this.dismissForm.invalid) { return; }
+    console.log('saving...');
+    this.savingBeforeClose = true;
+    this.dialogRef.disableClose = true;
+
+    const personsToDismiss: number[] = [this.data.person.personID];
+    this.positionApiService.dismiss(this.data.position.positionID, this.date.value.toJSON(), personsToDismiss).subscribe(val => {
       this.dialogRef.close();
     }, err => {
       // how do we want to handle errors? Notification top right?
