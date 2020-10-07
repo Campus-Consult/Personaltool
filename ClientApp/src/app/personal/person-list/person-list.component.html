@@ -10,12 +10,12 @@
 
 <table mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="firstName">
-    <th mat-header-cell *matHeaderCellDef></th>
+    <th mat-header-cell *matHeaderCellDef>Vorname</th>
     <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
   </ng-container>
 
   <ng-container matColumnDef="lastName">
-    <th mat-header-cell *matHeaderCellDef></th>
+    <th mat-header-cell *matHeaderCellDef>Nachname</th>
     <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
   </ng-container>
 
