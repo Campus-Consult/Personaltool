@@ -12,7 +12,7 @@
                         <a class="nav-link text-dark" title="Manage">Hello {{authUser.name}}!</a><!-- TODO this should lead to the users personal profile -->
                     </li>
                     <li class="nav-item">
-                        <form class="form-inline" action="Account/Logout">
+                        <form class="form-inline" (submit)="logout()">
                             <button type="submit" class="nav-link btn btn-link text-dark">Logout<i class="fas ml-2 fa-sign-out-alt"></i></button>
                         </form>
                     </li>
@@ -27,7 +27,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" routerLink="/">Home</a>
                     </li>
-                    <li *ngIf="authUser.permissions.includes('Admin')" class="nav-item">
+                    <li *ngIf="permissions.includes('Admin')" class="nav-item">
                         <a class="nav-link text-dark" href="/Person">Person</a>
                     </li>
                     <li *ngIf="authUser.permissions.includes('Admin')" class="nav-item">

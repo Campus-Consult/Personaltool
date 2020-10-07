@@ -27,8 +27,12 @@ namespace Personaltool.Controllers
         // OpenIdConnectDefaults.AuthenticationScheme, // don't sign out of msgraph
         CookieAuthenticationDefaults.AuthenticationScheme
       }, new AuthenticationProperties {
-        RedirectUri = "/",
+        RedirectUri = "/Account/SignedOut",
       });
+    }
+
+    public IActionResult SignedOut() {
+      return Ok();
     }
 
     public IActionResult AuthStatus() {

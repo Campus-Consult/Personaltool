@@ -67,6 +67,7 @@ namespace Personaltool
                 })
                 .AddCookie(
                     options => {
+                        options.SessionStore = new MemoryCacheTicketStore();
                         options.Events.OnSigningIn = context => {
                             // foreach(var claim in context.Principal.Claims) {
                             //     Console.WriteLine(claim.Type+": "+claim.Value);
