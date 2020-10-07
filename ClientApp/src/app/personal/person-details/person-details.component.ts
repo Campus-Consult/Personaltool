@@ -26,26 +26,12 @@ export class PersonDetailsComponent implements OnInit, OnChanges {
 
   public displayedName: string;
 
-  // Expansionpanels Desc
-  public currentMemberState: MemberStatus;
-  public currentCareerLevel: CareerLevel;
-  public currentPositions: Position;
-
   constructor() {}
 
   ngOnInit(): void {
     this.displayedName = this.personTabledDTO?this.getFullName(): 'No Person Selected';
 
-    // TODO AAM: Propertys could undefinded and need get from Backend
-    this.currentMemberState = this.personDetails.personsMemberStatus.find(
-      (val) => !val.end
-    ).memberStatus;
-    this.currentCareerLevel = this.personDetails.personsCareerLevels.find(
-      (val) => !val.end
-    ).careerLevel;
-    this.currentPositions = this.personDetails.personsPositions.find(
-      (val) => !val.end
-    ).position;
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {

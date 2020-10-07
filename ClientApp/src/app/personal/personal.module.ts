@@ -10,12 +10,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ComponentsModule } from '../components/components.module';
 import { PersonalDataComponent } from './person-details/personal-data/personal-data.component';
+import { EditPetsonalDataComponent } from './person-details/edit-pesonal-data/edit-pesonal-data.component';
+import { HistoryExpansionComponent } from './person-details/history-panels/history-expansion/history-expansion.component';
+import { HistoryPanelsComponent } from './person-details/history-panels/history-panels.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { PersonalDataComponent } from './person-details/personal-data/personal-d
     PersonEditComponent,
     PersonDetailsComponent,
     PersonListComponent,
-    PersonalDataComponent
+    PersonalDataComponent,
+    EditPetsonalDataComponent,
+    HistoryExpansionComponent,
+    HistoryPanelsComponent
   ],
   exports: [PersonalComponent],
   imports: [
@@ -38,7 +44,8 @@ import { PersonalDataComponent } from './person-details/personal-data/personal-d
     MatPaginatorModule,
     MatGridListModule,
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ReactiveFormsModule
   ],
 })
 export class PersonalModule {}
