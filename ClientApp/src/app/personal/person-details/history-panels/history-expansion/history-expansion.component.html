@@ -1,0 +1,25 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title> {{ title }} </mat-panel-title>
+    <mat-panel-description *ngIf="panelDescription">
+      {{ panelDescription }}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <ng-container *ngIf="historyData; else templateName">
+    <table id="history-table" mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>{{title}}</th>
+        <td mat-cell *matCellDef="let element"><a (click)="emitOpenDetails($event)">{{ element.name }}</a></td>
+      </ng-container>
+      <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef>{{title + 'erhalten'}}</th>
+        <td mat-cell *matCellDef="let element">{{ element.startDate }}</td>
+      </ng-container>
+      <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef>{{title + 'entfernt'}}.</th>
+        <td mat-cell *matCellDef="let element">{{ element.position }}</td>
+      </ng-container>
+    </table>
+  </ng-container>
+  <ng-container #templateName> No History Data </ng-container>
+</mat-expansion-panel>
