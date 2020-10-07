@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, forwardRef, OnChanges, SimpleChanges, Self, Optional } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, NgControl } from '@angular/forms';
+import { Component, OnInit, Input, forwardRef, OnChanges, SimpleChanges } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface AssignmentOption {
   name: string,
