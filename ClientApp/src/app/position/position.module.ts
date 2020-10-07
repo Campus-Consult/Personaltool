@@ -25,12 +25,16 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/m
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SearchSelectComponent } from '../common/search-select/search-select.component';
 
-import { PositionComponent, PositionAssignDialogComponent, PositionDismissDialogComponent, PositionCreateDialogComponent, PositionEditCialogComponent } from "./position.component";
+import { PositionComponent } from "./position.component";
+import { PositionAssignDialogComponent } from "./position-assign-dialog/position-assign-dialog.component";
+import { PositionCreateDialogComponent } from "./position-create-dialog/position-create-dialog.component";
+import { PositionDismissDialogComponent } from "./position-dismiss-dialog/position-dismiss-dialog.component";
+import { PositionEditDialogComponent } from "./position-edit-dialog/position-edit-dialog.component";
 
 @NgModule({
   declarations: [
     PositionComponent,
-    PositionEditCialogComponent,
+    PositionEditDialogComponent,
     PositionAssignDialogComponent,
     PositionDismissDialogComponent,
     PositionCreateDialogComponent,
