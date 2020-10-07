@@ -17,10 +17,13 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.authUserService.currentUser.subscribe(user => {
       this.authUser = user;
-      this.permissions = (user || {permissions: []}).permissions;
+      this.permissions = user?.permissions || [];
     });
- /*    const url = '';
-    let body: any;
-    this.http.post(url, body); */
+  }
+
+  // trigger logout by posting to the logout endpoint, then refresh auth status
+  logout(): void {
+    this.http.post(this.baseURL + 'Account/Logout', {})
+      .subscribe(a => this.authUserService.refreshAuthStatus());
   }
 }
