@@ -8,13 +8,11 @@
     class="content-margin"
   >
     <app-personal-data [personDetails]="personDetails"></app-personal-data>
+    <app-history-panels [personDetails]="personDetails"></app-history-panels>
   </mat-card-content>
   <ng-template #elseTemplate>
     <mat-card-content class="content-margin">
       Click on person in table to show Details.
     </mat-card-content>
   </ng-template>
-  <mat-card-actions>
-    <button mat-button col>Ok</button>
-  </mat-card-actions>
 </mat-card>

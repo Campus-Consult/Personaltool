@@ -1,41 +1,73 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'app-history-expansion',
   templateUrl: './history-expansion.component.html',
-  styleUrls: ['./history-expansion.component.scss']
+  styleUrls: ['./history-expansion.component.scss'],
 })
-export class HistoryExpansionComponent implements OnInit {
+export class HistoryExpansionComponent implements OnInit, OnChanges {
+  @Input() title: string = '-';
 
-  @Input() title: string;
-
-  @Input() historyData: HistoryData[]
+  @Input() historyData: HistoryData[] = [];
 
   @Input() panelDescription?: string;
 
-  @Output() openDetails: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() openDetails: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   displayedColumns: string[] = ['name', 'startDate', 'endDate'];
 
   dataSource = new Array<HistoryTableSource>();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { 
-    for (const historyItem of this.historyData) {
-      this.convertToDataSourceItem(historyItem)
+  ngOnChanges(changes: SimpleChanges): void {
+    for (const propName in changes) {
+      if ('historyData' === propName) {
+        for (const historyItem of this.historyData) {
+          this.dataSource.push(this.convertToDataSourceItem(historyItem));
+        }
+      }
     }
   }
 
-  convertToDataSourceItem(historyData: HistoryData): HistoryTableSource{
-    const endDate = historyData.endDate? historyData.endDate.toDateString(): '-';
-    return {id: historyData.id, name: historyData.name, startDate: historyData.startDate.toDateString(), endDate: endDate }
+  ngOnInit(): void {}
+
+  convertToDataSourceItem(historyData: HistoryData): HistoryTableSource {
+    const endDate = historyData.endDate
+      ? historyData.endDate.toDateString()
+      : '-';
+    return {
+      id: historyData.id,
+      name: historyData.name,
+      startDate: historyData.startDate.toDateString(),
+      endDate: endDate,
+    };
   }
 
-  emitOpenDetails(event: MouseEvent){
+  emitOpenDetails(event: MouseEvent) {
     this.openDetails.emit(event);
   }
 }
 
-export interface HistoryTableSource{id: number, name: string, startDate: string; endDate: string }
-export interface HistoryData {id: number, name: string, startDate: Date; endDate: Date }
+export interface HistoryTableSource {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+}
+export interface HistoryData {
+  id: number;
+  name: string;
+  startDate: Date;
+  endDate: Date;
+}

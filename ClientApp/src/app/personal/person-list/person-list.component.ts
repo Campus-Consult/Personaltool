@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { PersonTableData } from '../personal.component';
+import { PersonListItem } from '../personal.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -11,9 +11,9 @@ import { MatSort } from '@angular/material/sort';
 })
 export class PersonListComponent implements OnInit {
   @Input()
-  personalData: PersonTableData[];
+  personalData: PersonListItem[];
 
-  dataSource: MatTableDataSource<PersonTableData>;
+  dataSource: MatTableDataSource<PersonListItem>;
 
   @Input()
   displayedColumns?: string[];
@@ -27,7 +27,7 @@ export class PersonListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   
-  public selectedPerson: PersonTableData;
+  public selectedPerson: PersonListItem;
 
   
   public searchValue = '';

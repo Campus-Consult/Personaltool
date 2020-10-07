@@ -7,16 +7,16 @@ import { Person, Gender } from '../models/person.class';
   styleUrls: ['./personal.component.scss'],
 })
 export class PersonalComponent implements OnInit {
-  public personalTableData: PersonTableData[];
+  public personalTableData: PersonListItem[];
 
   public searchValue= '';
 
-  public selectedPerson: PersonTableData;
+  public selectedPerson: PersonListItem;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.personalTableData = new Array<PersonTableData>();
+    this.personalTableData = new Array<PersonListItem>();
     for (let index = 0; index < 10; index++) {
       this.personalTableData.push({
         personID: index,
@@ -37,69 +37,12 @@ export class PersonalComponent implements OnInit {
   createPerson() {}
 
   changeDisplayedPerson(persId: number){
-    // TODO: evelaute is using index better?
     this.selectedPerson = this.personalTableData.find((val)=>val.personID === persId);
   }
 
-  getPersonDetails(personID: number): Person{
-    const personList = new Array<Person>();
-    for (let index = 0; index < 10; index++) {
-      
-      personList.push({
-        personID: index,
-        firstName: 'Test' + index,
-        lastName: 'Subject' + index,
-
-        birthdate: new Date(index),
-
-        gender: index%2===0? Gender.MALE: Gender.FEMALE,
-      
-        emailPrivate: 'testMail@webkitCancelAnimationFrame.de',
-    
-        emailAssociaton: 'testMail@webkitCancelAnimationFrame.de',
-      
-        mobilePrivate: "+49123456789",
-      
-        /**  */
-        adressStreet: 'Stra0enweg',
-      
-        /**  */
-        adressNr: (index + 56).toString(),
-      
-        /**  */
-        adressCity: 'paderborn',
-      
-        /**  */
-        personsMemberStatus: [{
-          personID: index,
-          personsMemberStatusID: index,
-          memberStatusID: index,
-          begin: new Date()
-        }],
-      
-        /**  */
-        personsCareerLevels: [{
-          personID: index,
-          personsCareerLevelID: index,
-          careerLevelID: index,
-          begin: new Date()
-        }],
-      
-        /**  */
-        personsPositions: [{
-          personID: index,
-          personPositionID: index,
-          positionID: index,
-          begin: new Date()
-        }]
-      })
-    }
-
-    return personList.find((val)=>val.personID === personID);
-  }
 }
 
-export interface PersonTableData{
+export interface PersonListItem{
   personID: number
   firstName: string;
   lastName: string;

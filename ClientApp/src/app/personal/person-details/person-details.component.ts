@@ -1,17 +1,13 @@
 import {
   Component,
-  OnInit,
   Input,
   OnChanges,
+  OnInit,
   SimpleChanges,
 } from '@angular/core';
-import {
-  Person,
-  MemberStatus,
-  Position,
-  CareerLevel,
-} from 'src/app/models/person.class';
-import { PersonTableData } from '../personal.component';
+import { Person } from 'src/app/models/person.class';
+import { PersonListItem } from '../personal.component';
+import { PersonApiService } from '../../services/api/person-api.service';
 
 @Component({
   selector: 'app-person-details',
@@ -20,18 +16,18 @@ import { PersonTableData } from '../personal.component';
 })
 export class PersonDetailsComponent implements OnInit, OnChanges {
   @Input()
-  personTabledDTO: PersonTableData;
+  personTabledDTO: PersonListItem;
 
   personDetails: Person;
 
   public displayedName: string;
 
-  constructor() {}
+  constructor(private personApi: PersonApiService) {}
 
   ngOnInit(): void {
-    this.displayedName = this.personTabledDTO?this.getFullName(): 'No Person Selected';
-
-
+    this.displayedName = this.personTabledDTO
+      ? this.getFullName()
+      : 'No Person Selected';
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -39,23 +35,19 @@ export class PersonDetailsComponent implements OnInit, OnChanges {
       const chng = changes[propName];
       const prev = chng.previousValue;
       console.log(propName);
-      
-      if (propName==='personTabledDTO' && chng.currentValue) {
-        this.personTabledDTO = chng.currentValue as PersonTableData;
+
+      if (propName === 'personTabledDTO' && chng.currentValue) {
+        this.personTabledDTO = chng.currentValue as PersonListItem;
       }
     }
     if (this.personTabledDTO) {
-      this.setPersonData(this.personTabledDTO.personID);
       this.displayedName = this.getFullName();
     }
   }
 
-  getPersondata(personId: number): string {
-    // TODO: Backend request
-    return ''
+  getPersondata(): Person {
+    return this.personApi.getPerson(this.personTabledDTO.personID);
   }
-
-  setPersonData(personId: number) {}
 
   getFullName(): string {
     return this.personTabledDTO.firstName + ' ' + this.personTabledDTO.lastName;
