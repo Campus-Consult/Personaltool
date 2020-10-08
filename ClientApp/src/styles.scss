@@ -117,7 +117,8 @@ $md-warncolor: (
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $ClientApp-primary: mat-palette($md-ccblau);
-$ClientApp-accent: mat-palette($md-ccgruen, A200, A100, A400);
+$ClientApp-secondary: mat-palette($md-ccblau, A100);
+$ClientApp-accent: mat-palette($md-ccgruen, 500);
 
 // The warn palette is optional (defaults to red).
 $ClientApp-warn: mat-palette($md-warncolor);
@@ -127,6 +128,7 @@ $ClientApp-warn: mat-palette($md-warncolor);
 $ClientApp-theme: mat-light-theme((
   color: (
     primary: $ClientApp-primary,
+    secondary: $ClientApp-secondary,
     accent: $ClientApp-accent,
     warn: $ClientApp-warn,
   )
@@ -139,6 +141,7 @@ $ClientApp-theme: mat-light-theme((
 
 // Create your Sass color vars (will be available in all the project)
 $primary: mat-color($ClientApp-primary);
+$secondary: mat-color($ClientApp-secondary); 
 $accent: mat-color($ClientApp-accent);
 $warn: mat-color($ClientApp-warn);
 

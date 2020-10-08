@@ -1,12 +1,17 @@
-<mat-form-field>
-  <mat-label>Filter</mat-label>
-  <input
-    matInput
-    (keyup)="applyFilter($event)"
-    placeholder="Serach..."
-    #input
-  />
-</mat-form-field>
+<div id="above-list">
+  <mat-form-field>
+    <mat-label>Suche</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Serach..."
+      #input
+    />
+  </mat-form-field>
+  <button mat-button color="accent" id="create">
+    <mat-icon outline>add_box</mat-icon>
+  </button>
+</div>
 
 <table mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="firstName">
@@ -39,7 +44,7 @@
   <ng-container matColumnDef="buttons">
     <th mat-header-cell *matHeaderCellDef>
       <button mat-button color="accent">
-        <mat-icon outline>add_box</mat-icon>
+        <mat-icon outline>refresh</mat-icon>
       </button>
     </th>
     <td mat-cell *matCellDef="let element">
