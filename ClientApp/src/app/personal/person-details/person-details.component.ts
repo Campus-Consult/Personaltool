@@ -33,15 +33,14 @@ export class PersonDetailsComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     for (const propName in changes) {
       const chng = changes[propName];
-      const prev = chng.previousValue;
-      console.log(propName);
-
       if (propName === 'personTabledDTO' && chng.currentValue) {
         this.personTabledDTO = chng.currentValue as PersonListItem;
       }
     }
+    // Load person Details
     if (this.personTabledDTO) {
       this.displayedName = this.getFullName();
+      this.personDetails = this.getPersondata();
     }
   }
 

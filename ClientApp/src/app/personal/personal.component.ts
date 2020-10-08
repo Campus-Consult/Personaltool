@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Person, Gender } from '../models/person.class';
+import { PersonApiService } from '../services/api/person-api.service';
 
 @Component({
   selector: 'app-personal',
@@ -13,28 +13,15 @@ export class PersonalComponent implements OnInit {
 
   public selectedPerson: PersonListItem;
 
-  constructor() {}
+  constructor(private personApi: PersonApiService) {}
 
   ngOnInit(): void {
-    this.personalTableData = new Array<PersonListItem>();
-    for (let index = 0; index < 10; index++) {
-      this.personalTableData.push({
-        personID: index,
-        firstName: 'Test' + index,
-        lastName: 'Subject' + index,
-        personsMemberStatus: 'MembverStautus',
-        personsCareerLevel: 'Careerlevel',
-        personsPosition: 'personsPositions'
-
-      });      
-    }
-    setTimeout(() => {
-      console.log(this.searchValue);
-    }, 20000);
-
+    this.personalTableData = this.personApi.getPersonalTableData();
   }
 
-  createPerson() {}
+  createPerson() {
+    // TODO: API Anbindung
+  }
 
   changeDisplayedPerson(persId: number){
     this.selectedPerson = this.personalTableData.find((val)=>val.personID === persId);
