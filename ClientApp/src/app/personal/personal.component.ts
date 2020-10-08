@@ -16,7 +16,7 @@ export class PersonalComponent implements OnInit {
   constructor(private personApi: PersonApiService) {}
 
   ngOnInit(): void {
-    this.personalTableData = this.personApi.getPersonalTableData();
+    this.doRefresh();
   }
 
   createPerson() {
@@ -25,6 +25,10 @@ export class PersonalComponent implements OnInit {
 
   changeDisplayedPerson(persId: number){
     this.selectedPerson = this.personalTableData.find((val)=>val.personID === persId);
+  }
+
+  doRefresh(){
+    this.personalTableData = this.personApi.getPersonalTableData();
   }
 
 }

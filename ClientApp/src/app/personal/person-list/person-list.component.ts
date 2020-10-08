@@ -21,6 +21,9 @@ export class PersonListComponent implements OnInit {
   @Output()
   onDetail = new EventEmitter<number>();
 
+  @Output()
+  onRefresh = new EventEmitter();
+
   //dataSource = new MatTableDataSource<PersonTableData>(this.personalData);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -50,7 +53,6 @@ export class PersonListComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.personalData);
   }
 
-
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -65,6 +67,10 @@ export class PersonListComponent implements OnInit {
 
   details(persID: number) {
     this.onDetail.emit(persID);
+  }
+
+  refresh(){
+    this.onRefresh.emit();
   }
 
 }

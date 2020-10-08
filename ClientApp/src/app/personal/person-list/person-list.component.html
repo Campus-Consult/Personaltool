@@ -43,7 +43,7 @@
 
   <ng-container matColumnDef="buttons">
     <th mat-header-cell *matHeaderCellDef>
-      <button mat-button color="accent">
+      <button mat-button color="accent" (click)="refresh()">
         <mat-icon outline>refresh</mat-icon>
       </button>
     </th>
