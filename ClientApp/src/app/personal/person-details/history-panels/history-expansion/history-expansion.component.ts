@@ -16,7 +16,7 @@ import {
 export class HistoryExpansionComponent implements OnInit, OnChanges {
   @Input() title: string = '-';
 
-  @Input() historyData: HistoryData[] = [];
+  @Input() historyData: HistoryData[] = new Array<HistoryData>();
 
   @Input() panelDescription?: string;
 
@@ -24,18 +24,16 @@ export class HistoryExpansionComponent implements OnInit, OnChanges {
     MouseEvent
   >();
 
-  displayedColumns: string[] = ['name', 'startDate', 'endDate'];
+  displayedColumns: string[] = ['name', 'startDate'];
 
   dataSource = new Array<HistoryTableSource>();
 
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    for (const propName in changes) {
-      if ('historyData' === propName) {
-        for (const historyItem of this.historyData) {
-          this.dataSource.push(this.convertToDataSourceItem(historyItem));
-        }
+    if ('historyData' in changes && this.historyData) {
+      for (const historyItem of this.historyData) {
+        this.dataSource.push(this.convertToDataSourceItem(historyItem));
       }
     }
   }
